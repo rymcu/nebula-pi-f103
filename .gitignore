@@ -21,3 +21,4 @@
 *.htm 
 *.map
 .pio
+.DS_Store
