@@ -26,7 +26,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+uint8_t rx_buff[100];  //接收缓存
+uint8_t rx_done = 0; //接收完成标志
+uint8_t rx_cnt = 0;//接收数据长度
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -91,8 +93,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   //串口发送数据测试
-  unsigned char Sendbuf[]="RYMCU nebula-pi uart1 test!\r\n";
-  HAL_UART_Transmit(&huart1,&Sendbuf,sizeof(Sendbuf),HAL_MAX_DELAY);//串口发送数据
+  unsigned char Sendbuf[] = "RYMCU nebula-pi usart1 test!\r\n";
+  HAL_UART_Transmit(&huart1,Sendbuf, sizeof(Sendbuf), HAL_MAX_DELAY); // 串口发送数据
   HAL_Delay(1000);
   //printf打印数据测试
   printf("hello,enjoy!\r\n");
@@ -106,6 +108,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if(rx_done == 1)//判读是否接收完成
+    {
+        rx_done = 0;//清除接收标志
+        //数据处理，打印接收长度、接收的数据
+        printf("length of rx data: %d!\r\n",rx_cnt);
+        for(int i = 0;i<rx_cnt;i++) printf("%c",rx_buff[i]);
+        printf("\r\n");
+
+        rx_cnt =0;//清除接收长度
+    } 
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // 切换亮、灭状态，添加此语句防止优化   
   }
   /* USER CODE END 3 */
 }
@@ -178,7 +191,8 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
+  //开启接收中断，空闲中断
+  __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
 }
@@ -240,7 +254,7 @@ static void MX_GPIO_Init(void)
 #ifdef __GNUC__
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 #else
-#define PUTCHAR_PROTOTYPE int fputc(int ch. FILE *f)
+#define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
 //重定向printf函数
 PUTCHAR_PROTOTYPE
