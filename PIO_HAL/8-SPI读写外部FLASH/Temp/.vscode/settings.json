@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "main.h": "c"
+        "main.h": "c",
+        "bsp_spi_flash.h": "c"
     }
 }

@@ -102,7 +102,8 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  spi_flash_test();
+  HAL_Delay(1000);
+  spi_flash_test();//SPI flash测试函数
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -257,7 +258,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //�?启接收中断，空闲中断
+  //开启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -375,16 +376,20 @@ void spi_flash_test(void)
   uint8_t read_buf[256];
   
   Flash_ReadID(&manu_id, &dev_id);
+  printf("Flash Manufacturer ID: 0x%04X\r\n", manu_id);
+  printf("Flash Device ID: 0x%04X\r\n", dev_id);
   Flash_ReadJedecID(jedec_id);
+  printf("Flash JEDEC ID: 0x%02X, 0x%02X, 0x%02X\r\n", jedec_id[0], jedec_id[1], jedec_id[2]);
   
   if (Flash_SectorErase(0x0000) == HAL_OK) {
     Flash_PageProgram(0x0000, write_buf, 4);
     Flash_ReadData(0x0000, read_buf, 4);
   }
-  
+  printf("Flash Write Data: 0x%02X, 0x%02X, 0x%02X, 0x%02X\r\n", write_buf[0], write_buf[1], write_buf[2], write_buf[3]);
+  printf("Flash Read  Data: 0x%02X, 0x%02X, 0x%02X, 0x%02X\r\n", read_buf[0], read_buf[1], read_buf[2], read_buf[3]);
   // 验证数据
   if (memcmp(write_buf, read_buf, 4) == 0) {
-    printf("SPI Flash Test Passed!\r\n");
+    printf("\r\nSPI Flash Test Passed!\r\n");
   }
 }
 /* USER CODE END 4 */
