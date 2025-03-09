@@ -34,6 +34,7 @@ void Flash_WriteDisable(void);
 uint8_t Flash_ReadStatusReg(void);
 HAL_StatusTypeDef Flash_WaitBusy(void);
 HAL_StatusTypeDef Flash_ReadData(uint32_t addr, uint8_t *pData, uint16_t Size);
+void FLASH_WriteData(uint32_t addr,uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef Flash_PageProgram(uint32_t addr, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef Flash_SectorErase(uint32_t addr);
 void Flash_ReadID(uint16_t *ManufacturerID, uint16_t *DeviceID);
