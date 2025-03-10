@@ -262,7 +262,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //开启接收中断，空闲中断
+  //�?启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -399,7 +399,7 @@ void spi_flash_test(void)
 // FATFS测试
 void FATFS_FLASH_Test(void)
 {
-  FATFS fs;                                                              // 文件系统对象
+  static FATFS fs;                                                              // 文件系统对象
   static FIL fnew;                                                       // 文件对象
   BYTE FATFS_Wr_Buff[128] = "hello, www.rymcu.com make it easy!have fun.\r\n"; // 写缓冲区
   BYTE FATFS_Rd_Buff[128] = {0};                                         // 读缓冲区
@@ -410,8 +410,8 @@ void FATFS_FLASH_Test(void)
   res = f_mount(&fs, "0:", 1);
   if (res == FR_NO_FILESYSTEM)
   {
-    printf("no files ystem,begin mkfs\r\n");
-    res = f_mkfs("0:", 0, 0); // 格式化
+    printf("no file system,begin mkfs\r\n");
+    res = f_mkfs("0:", 0, 0); //格式化
     if (res == FR_OK)
     {
       printf("file system mkfs ok\r\n");
@@ -425,6 +425,10 @@ void FATFS_FLASH_Test(void)
     {
       printf("failed mount\r\n");
     }
+  }
+  else
+  {
+    printf("file system alreadly existed.\r\n");
   }
   printf("\r\n\r\n-------------------FATFS write test-------------------\r\n");
   // 打开文件，文件不存在则创建并打开
@@ -449,7 +453,7 @@ void FATFS_FLASH_Test(void)
     printf("open RY.txt failed\r\n");
     return;
   }
-  // 读测试
+  // 读取文件测试
   res = f_read(&fnew, FATFS_Rd_Buff, sizeof(FATFS_Rd_Buff), &fnum);
   if (res != FR_OK)
   {

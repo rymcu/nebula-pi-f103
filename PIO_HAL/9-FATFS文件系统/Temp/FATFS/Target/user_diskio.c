@@ -88,8 +88,8 @@ DSTATUS USER_initialize (
   case 1: // SD
     Stat = RES_PARERR;
     break;
-  case 0: // Flash，工程中使用驱动器0
-    // main函数中自动生成了W25Q64的初始化代码，直接返回成功。
+  case 0: // Flash，工程中使用驱动�?0
+    // main函数中自动生成了W25Q64的初始化代码，直接返回成功�??
     Stat = RES_OK;
     break;
   default:
@@ -110,9 +110,9 @@ DSTATUS USER_status (
 {
   /* USER CODE BEGIN STATUS */
   Stat = STA_NOINIT;
-  // 返回启动器的状态，工程中使用了驱动器0
+  // 返回启动器的状�?�，工程中使用了驱动�?0
   if (pdrv == 0)
-    Stat = RES_OK; // main函数中自动生成了FLASH初始化代码，直接返回成功。
+    Stat = RES_OK; // main函数中自动生成了FLASH初始化代码，直接返回成功�?
   return Stat;
   /* USER CODE END STATUS */
 }
@@ -133,11 +133,11 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-  // 添加FLASH读函数
+  // 添加FLASH读函�?
   if (pdrv == 0)
   {
-    // 调用读数据函数，值得注意的是sector指的是0-2047，即哪一个扇区，与W25Q64实际扇区地址不是一个概念
-    // 一个扇区对应4096个字节，因此，输入地址为sector*4096，count同理。
+    // 调用读数据函数，值得注意的是sector指的�?0-2047，即哪一个扇区，与W25Q64实际扇区地址不是�?个概�?
+    // �?个扇区对�?4096个字节，因此，输入地�?为sector*4096，count同理�?
     Flash_ReadData(sector * 4096, (uint8_t *)buff, count * 4096);
     return RES_OK;
   }
@@ -168,10 +168,10 @@ DRESULT USER_write (
   /* USER CODE HERE */
   if (pdrv == 0)
   {
-    // 添加写函数
-    // FLASH写操作前需要进行扇区擦除，需要擦除count个扇区，在USER_ioctl函数中
-    // 设置了GET_BLOCK_SIZE为1,即单次读写操作擦除扇区个数为1，所以count值
-    // 始终为1，因此只需要调用一次扇区擦除即可。
+    // 添加写函�?
+    // FLASH写操作前�?要进行扇区擦除，�?要擦除count个扇区，在USER_ioctl函数�?
+    // 设置了GET_BLOCK_SIZE�?1,即单次读写操作擦除扇区个数为1，所以count�?
+    // 始终�?1，因此只�?要调用一次扇区擦除即可�??
     Flash_SectorErase(sector * 4096);
     FLASH_WriteData(sector * 4096, (uint8_t *)buff, count * 4096);
     /* USER CODE HERE */
@@ -214,7 +214,7 @@ DRESULT USER_ioctl (
       res = RES_OK;
       break;
     case GET_SECTOR_COUNT:
-      *(DWORD *)buff = 2048; // W25Q64容量为8MB，共计2048个扇区
+      *(DWORD *)buff = 2048; // W25Q64容量�?8MB，共�?2048个扇�?
       res = RES_OK;
       break;
     case GET_BLOCK_SIZE:
