@@ -108,6 +108,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
  // HAL_Delay(1000);
  // Get_MCU_Info();
+ OLED_IIC_Test();
   /* USER CODE END 2 */
 
   /* Infinite loop */
