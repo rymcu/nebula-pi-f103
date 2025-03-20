@@ -40,6 +40,7 @@ uint8_t rx_cnt = 0;//接收数据长度
 uint8_t fall_pot[128]; // 记录下落点的坐标
 void OLED_Snow_Test(void);
 void SnowLike(void);
+void OLED_IIC_Test(void);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -245,7 +246,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //�?启接收中断，空闲中断
+  //�??启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -327,24 +328,24 @@ PUTCHAR_PROTOTYPE
     return ch;
 }
 /**
- * @brief �?内部FLASH写入数据
+ * @brief �??内部FLASH写入数据
  * @param addr 写入地址
  * @param pdata 存储待写数据
  * @retval None
  */
 void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
 {
-  // 定义�?部变�?
+  // 定义�??部变�??
   uint32_t PageError = 0;
   HAL_StatusTypeDef HAL_Status;
   // 擦除配置信息结构体，包括擦除地址、方式�?�页数等
   FLASH_EraseInitTypeDef pEraseInit;
   pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES; // 按页擦除
   pEraseInit.PageAddress = addr;                // 擦除地址
-  pEraseInit.NbPages = 1;                       // 擦除页数�?
-  // step1 解锁内部FLASH，允许读写功�?
+  pEraseInit.NbPages = 1;                       // 擦除页数�??
+  // step1 解锁内部FLASH，允许读写功�??
   HAL_FLASH_Unlock();
-  // step2 �?始擦除addr对应�?
+  // step2 �??始擦除addr对应�??
   HAL_Status = HAL_FLASHEx_Erase(&pEraseInit, &PageError); // 擦除
   if (HAL_Status != HAL_OK)
     printf("内部FlASH擦除失败!\r\n");
@@ -356,13 +357,13 @@ void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
 /**
  * @brief 读取内部FLASH数据
  * @param addr 读取地址
- * @retval 读出的数�?
+ * @retval 读出的数�??
  */
 uint32_t FLASH_Inside_Rd(uint32_t addr)
 {
-  // 定义�?部变�?
+  // 定义�??部变�??
   uint32_t RdData = 0;
-  // step1 解锁内部FLASH，允许读写功�?
+  // step1 解锁内部FLASH，允许读写功�??
   HAL_FLASH_Unlock();
   RdData = *(__IO uint32_t *)addr;
   // step2 锁定FLASH
@@ -376,8 +377,8 @@ uint32_t FLASH_Inside_Rd(uint32_t addr)
 void FLASH_Inside_Test(void)
 {
   printf("\r\n\r\n------------------on chip FLASH write/read test------------------\r\n\r\n");
-  uint32_t addr = 0x08010000;   // 确保该地�?内部FLASH是空余的�?
-  uint32_t WrData = 0x01234567; // 待写入数�?
+  uint32_t addr = 0x08010000;   // 确保该地�??内部FLASH是空余的�??
+  uint32_t WrData = 0x01234567; // 待写入数�??
   uint32_t RdData = 0;          // 存储读取数据
 
   printf("addr:0x%x write data:0x%x\r\n", addr, WrData);
@@ -392,12 +393,12 @@ void Get_MCU_Info(void)
 {
     printf("\r\n\r\n------------------get mcu information------------------\r\n\r\n");
     uint32_t  FLASH_Size_Addr = 0x1FFFF7E0;//FLASH大小存储地址
-    //获取存储器大�?
+    //获取存储器大�??
     printf("FLASH  Size: %dKB\r\n",*(uint16_t *)FLASH_Size_Addr);
     //获取HAL版本
     uint32_t HALVer = HAL_GetHalVersion();
     printf("HAL Version: V%d.%d.%d\r\n",HALVer>>24,(HALVer>>16)&0xFF,(HALVer>>8)&0xFF);
-   //获取保留ID�?
+   //获取保留ID�??
     printf("Revision ID: 0x%X\r\n",HAL_GetREVID());
     //获取全球唯一UID
     printf("Unique ID(UID): 0x%08X %08X %08X\r\n",HAL_GetUIDw0(),HAL_GetUIDw1(),HAL_GetUIDw2());
@@ -407,25 +408,25 @@ void Get_MCU_Info(void)
 
 }
 /**
-  * @brief 读取内部温度传感器
+  * @brief 读取内部温度传感�?
   */
  void Get_Temp(void)
  {
-     uint32_t Temp;//温度采样分层值
-     float Vsense = 0.0;//温度采样电压值
-     float Temperature = 0.0;//温度值
+     uint32_t Temp;//温度采样分层�?
+     float Vsense = 0.0;//温度采样电压�?
+     float Temperature = 0.0;//温度�?
      //数据手册温度转换公式：T = ((V25-Vsense)/Avg_Slope) + 25
      float V25 = 1.43;//查阅手册获得
-     float Avg_Slope = 0.0043;//4.3mV/摄氏度
+     float Avg_Slope = 0.0043;//4.3mV/摄氏�?
      printf("\r\n\r\n------------------MCU inside Temperature sensor------------------\r\n\r\n");
      //step1 启动ADC
      HAL_ADC_Start(&hadc1);
      //step2 温度采集转换
      HAL_ADC_PollForConversion(&hadc1,5);
      //step3 转换计算
-     Temp = HAL_ADC_GetValue(&hadc1);//获取采样值分层值
-     Vsense = Temp *(3.3/4096);//采样精度12bit,最大分层值4096
-     Temperature = ((V25-Vsense)/Avg_Slope) + 25;//按公式计算温度值
+     Temp = HAL_ADC_GetValue(&hadc1);//获取采样值分层�??
+     Vsense = Temp *(3.3/4096);//采样精度12bit,�?大分层�??4096
+     Temperature = ((V25-Vsense)/Avg_Slope) + 25;//按公式计算温度�??
      //step4 串口打印
      printf("Temp:%d\r\nVsense:%0.3f\r\nTemperature:%0.3f\r\n", (int)Temp, Vsense, Temperature);
      HAL_Delay(1000);
@@ -436,7 +437,7 @@ void OLED_IIC_Test(void)
   uint16_t ms = 1000;
   OLED_Init();       // 初始化OLED
   OLED_Clear();      // 清除屏幕
-  OLED_Display_On(); // �?启OLED
+  OLED_Display_On(); // �??启OLED
 
   /*****************************************
    *
@@ -478,11 +479,11 @@ void OLED_IIC_Test(void)
    *0.96 OLED 中文显示测试
    *
    *******************************************/
-  OLED_ShowCHinese(22, 3, 1, 0);      // �?
-  OLED_ShowCHinese(22 + 16, 3, 2, 0); // �?
-  OLED_ShowCHinese(22 + 32, 3, 3, 0); // �?
-  OLED_ShowCHinese(22 + 48, 3, 4, 0); // �?
-  OLED_ShowCHinese(22 + 64, 3, 5, 0); // �?
+  OLED_ShowCHinese(22, 3, 1, 0);      // �??
+  OLED_ShowCHinese(22 + 16, 3, 2, 0); // �??
+  OLED_ShowCHinese(22 + 32, 3, 3, 0); // �??
+  OLED_ShowCHinese(22 + 48, 3, 4, 0); // �??
+  OLED_ShowCHinese(22 + 64, 3, 5, 0); // �??
 
   OLED_ShowString(25, 6, "CHN Test!", 16, 1);
 
@@ -491,7 +492,7 @@ void OLED_IIC_Test(void)
 
   /*****************************************
    *
-   *0.96 OLED 字符串显示测�?
+   *0.96 OLED 字符串显示测�??
    *
    *******************************************/
 
@@ -514,10 +515,10 @@ void OLED_Snow_Test(void)
 {
   OLED_Init();       // 初始化OLED
   OLED_Clear();      // 清除屏幕
-  OLED_Display_On(); // 开启OLED
+  OLED_Display_On(); // �?启OLED
   static u8 x, y;
 
-  // 设置128列下落点的初始值，随机产生0-63之间的数值
+  // 设置128列下落点的初始�?�，随机产生0-63之间的数�?
   for (int i = 0; i < 128; i++)
     fall_pot[i] = rand() % 64;
 
@@ -533,10 +534,10 @@ void OLED_Snow_Test(void)
 void SnowLike(void)
 {
   OLED_ClearGram();               // 清除屏幕
-  for (u_char i = 0; i < 32; i++) // 每4列选一点
+  for (u_char i = 0; i < 32; i++) // �?4列�?�一�?
   {
     // OLED_Fill(x,0,x+2,y+2,1);
-    // 画下落的点，每次下落2个像素，每4列选一个，保证雪花不至于太密
+    // 画下落的点，每次下落2个像素，�?4列�?�一个，保证雪花不至于太�?
     OLED_Fill(i * 4, fall_pot[i], i * 4 + 1, fall_pot[i] + 1, 1);
     if (fall_pot[i] >= 2)
       fall_pot[i] -= 2;

@@ -21,19 +21,26 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printf������
+#include "stdio.h"//printf
+#include "oled.h"
+#include "bmp.h"
+#include "math.h"
+#include "stdlib.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //���ջ���
-uint8_t rx_done = 0; //������ɱ�־
-uint8_t rx_cnt = 0;//�������ݳ���
+uint8_t rx_buff[100];  
+uint8_t rx_done = 0; 
+uint8_t rx_cnt = 0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+uint8_t fall_pot[128]; // 记录下落点的坐标
+void OLED_Snow_Test(void);
+void SnowLike(void);
+void OLED_IIC_Test(void);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -100,6 +107,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+	// OLED_IIC_Test();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,7 +118,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
           //采集温度
-          Get_Temp();
+    OLED_Snow_Test();
   }
   /* USER CODE END 3 */
 }
@@ -317,13 +325,13 @@ PUTCHAR_PROTOTYPE
 }
 /**
  * @brief ���ڲ�FLASHд������
- * @param addr д���ַ
+ * @param addr д����?
  * @param pdata �洢��д����
  * @retval None
  */
 void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
 {
-  // ����ֲ�����
+  // ����ֲ�����?
   uint32_t PageError = 0;
   HAL_StatusTypeDef HAL_Status;
   // ����������Ϣ�ṹ�壬����������ַ����ʽ��ҳ����
@@ -331,7 +339,7 @@ void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
   pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES; // ��ҳ����
   pEraseInit.PageAddress = addr;                // ������ַ
   pEraseInit.NbPages = 1;                       // ����ҳ����
-  // step1 �����ڲ�FLASH�������д����
+  // step1 �����ڲ�FLASH�������д����?
   HAL_FLASH_Unlock();
   // step2 ��ʼ����addr��Ӧҳ
   HAL_Status = HAL_FLASHEx_Erase(&pEraseInit, &PageError); // ����
@@ -349,9 +357,9 @@ void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
  */
 uint32_t FLASH_Inside_Rd(uint32_t addr)
 {
-  // ����ֲ�����
+  // ����ֲ�����?
   uint32_t RdData = 0;
-  // step1 �����ڲ�FLASH�������д����
+  // step1 �����ڲ�FLASH�������д����?
   HAL_FLASH_Unlock();
   RdData = *(__IO uint32_t *)addr;
   // step2 ����FLASH
@@ -365,7 +373,7 @@ uint32_t FLASH_Inside_Rd(uint32_t addr)
 void FLASH_Inside_Test(void)
 {
   printf("\r\n\r\n------------------on chip FLASH write/read test------------------\r\n\r\n");
-  uint32_t addr = 0x08010000;   // ȷ���õ�ַ�ڲ�FLASH�ǿ���ģ�
+  uint32_t addr = 0x08010000;   // ȷ���õ�ַ�ڲ�FLASH�ǿ���ģ�?
   uint32_t WrData = 0x01234567; // ��д������
   uint32_t RdData = 0;          // �洢��ȡ����
 
@@ -396,29 +404,144 @@ void Get_MCU_Info(void)
 
 }
 /**
-  * @brief 读取内部温度传感器
+  * @brief 读取内部温度传感�?
   */
  void Get_Temp(void)
  {
-     uint32_t Temp;//温度采样分层值
-     float Vsense = 0.0;//温度采样电压值
-     float Temperature = 0.0;//温度值
+     uint32_t Temp;//温度采样分层�?
+     float Vsense = 0.0;//温度采样电压�?
+     float Temperature = 0.0;//温度�?
      //数据手册温度转换公式：T = ((V25-Vsense)/Avg_Slope) + 25
      float V25 = 1.43;//查阅手册获得
-     float Avg_Slope = 0.0043;//4.3mV/摄氏度
+     float Avg_Slope = 0.0043;//4.3mV/摄氏�?
      printf("\r\n\r\n------------------MCU inside Temperature sensor------------------\r\n\r\n");
      //step1 启动ADC
      HAL_ADC_Start(&hadc1);
      //step2 温度采集转换
      HAL_ADC_PollForConversion(&hadc1,5);
      //step3 转换计算
-     Temp = HAL_ADC_GetValue(&hadc1);//获取采样值分层值
-     Vsense = Temp *(3.3/4096);//采样精度12bit,最大分层值4096
-     Temperature = ((V25-Vsense)/Avg_Slope) + 25;//按公式计算温度值
+     Temp = HAL_ADC_GetValue(&hadc1);//获取采样值分层�??
+     Vsense = Temp *(3.3/4096);//采样精度12bit,�?大分层�??4096
+     Temperature = ((V25-Vsense)/Avg_Slope) + 25;//按公式计算温度�??
      //step4 串口打印
      printf("Temp:%d\r\nVsense:%0.3f\r\nTemperature:%0.3f\r\n", (int)Temp, Vsense, Temperature);
      HAL_Delay(1000);
  }
+ // 0.96 OLED测试
+void OLED_IIC_Test(void)
+{
+  uint16_t ms = 1000;
+  OLED_Init();       // 初始化OLED
+  OLED_Clear();      // 清除屏幕
+  OLED_Display_On(); // �??启OLED
+
+  /*****************************************
+   *
+   *0.96 OLED 字符显示测试
+   *
+   *******************************************/
+  OLED_ShowChar(0, 0, 'A', 16, 0);
+  OLED_ShowChar(8, 0, 'B', 16, 0);
+  OLED_ShowChar(16, 0, 'C', 16, 0);
+  OLED_ShowChar(24, 0, 'D', 16, 0);
+
+  OLED_ShowChar(0, 2, 'A', 8, 0);
+  OLED_ShowChar(8, 2, 'B', 8, 0);
+  OLED_ShowChar(16, 2, 'C', 8, 0);
+  OLED_ShowChar(24, 2, 'D', 8, 0);
+
+  OLED_ShowString(25, 6, "Char Test!", 16, 1);
+
+  HAL_Delay(ms);
+  OLED_Clear(); // 清除屏幕
+
+  /*****************************************
+   *
+   *0.96 OLED 数字显示测试
+   *
+   *******************************************/
+
+  OLED_ShowNum(0, 1, 12, 2, 16, 0);
+  OLED_ShowNum(48, 1, 34, 2, 16, 0);
+  OLED_ShowNum(96, 1, 56, 2, 16, 0);
+
+  OLED_ShowString(25, 6, "Num Test!", 16, 1);
+
+  HAL_Delay(ms);
+  OLED_Clear(); // 清除屏幕
+
+  /*****************************************
+   *
+   *0.96 OLED 中文显示测试
+   *
+   *******************************************/
+  OLED_ShowCHinese(22, 3, 1, 0);      // �??
+  OLED_ShowCHinese(22 + 16, 3, 2, 0); // �??
+  OLED_ShowCHinese(22 + 32, 3, 3, 0); // �??
+  OLED_ShowCHinese(22 + 48, 3, 4, 0); // �??
+  OLED_ShowCHinese(22 + 64, 3, 5, 0); // �??
+
+  OLED_ShowString(25, 6, "CHN Test!", 16, 1);
+
+  HAL_Delay(ms);
+  OLED_Clear(); // 清除屏幕
+
+  /*****************************************
+   *
+   *0.96 OLED 字符串显示测�??
+   *
+   *******************************************/
+
+  OLED_ShowString(0, 2, "Nebula-Pi,RYMCU!", 16, 0);
+  OLED_ShowString(25, 6, "Str Test!", 16, 1);
+  HAL_Delay(ms);
+  OLED_Clear(); // 清除屏幕
+  /*****************************************
+   *
+   *0.96 OLED 图片显示测试
+   *
+   *******************************************/
+
+  OLED_DrawBMP(0, 0, Logo, 0); // 显示图片
+  OLED_ShowString(25, 6, "PIC Test!", 16, 1);
+  HAL_Delay(2000);
+}
+// 0.96 OLED测试
+void OLED_Snow_Test(void)
+{
+  OLED_Init();       // 初始化OLED
+  OLED_Clear();      // 清除屏幕
+  OLED_Display_On(); // �?启OLED
+  static u8 x, y;
+
+  // 设置128列下落点的初始�?�，随机产生0-63之间的数�?
+  for (int i = 0; i < 128; i++)
+    fall_pot[i] = rand() % 64;
+
+  while (1)
+  {
+    HAL_Delay(50);
+    SnowLike();
+  }
+}
+
+/*柱状显示*/
+#define u_char unsigned char
+void SnowLike(void)
+{
+  OLED_ClearGram();               // 清除屏幕
+  for (u_char i = 0; i < 32; i++) // �?4列�?�一�?
+  {
+    // OLED_Fill(x,0,x+2,y+2,1);
+    // 画下落的点，每次下落2个像素，�?4列�?�一个，保证雪花不至于太�?
+    OLED_Fill(i * 4, fall_pot[i], i * 4 + 1, fall_pot[i] + 1, 1);
+    if (fall_pot[i] >= 2)
+      fall_pot[i] -= 2;
+    else
+      fall_pot[i] = 63;
+  }
+  OLED_Refresh_Gram(); // 重新填充屏幕
+}
 /* USER CODE END 4 */
 
 /**
