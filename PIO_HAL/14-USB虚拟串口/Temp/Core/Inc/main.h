@@ -60,18 +60,21 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define USB_EN_Pin GPIO_PIN_5
+#define USB_EN_GPIO_Port GPIOE
+#define WS2812_Pin GPIO_PIN_13
+#define WS2812_GPIO_Port GPIOC
+#define FLASH_CS_Pin GPIO_PIN_1
+#define FLASH_CS_GPIO_Port GPIOA
 #define K1_Pin GPIO_PIN_2
 #define K1_GPIO_Port GPIOA
-#define K2_Pin GPIO_PIN_3
-#define K2_GPIO_Port GPIOA
+#define K2_EXIT_Pin GPIO_PIN_3
+#define K2_EXIT_GPIO_Port GPIOA
+#define K2_EXIT_EXTI_IRQn EXTI3_IRQn
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOD
-#define OLED_SCL_Pin GPIO_PIN_3
-#define OLED_SCL_GPIO_Port GPIOB
 #define LED1_Pin GPIO_PIN_4
 #define LED1_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_5
-#define OLED_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
