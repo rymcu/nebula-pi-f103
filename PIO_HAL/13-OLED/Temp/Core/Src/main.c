@@ -26,6 +26,7 @@
 #include "bmp.h"
 #include "math.h"
 #include "stdlib.h"
+#include "usbd_cdc_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
