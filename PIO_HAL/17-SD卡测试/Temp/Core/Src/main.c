@@ -53,6 +53,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 SPI_HandleTypeDef *hspi_flash = &hspi1; // 必须定义
+SPI_HandleTypeDef *hspi_flash_sd = &hspi1; // 必须定义
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -216,8 +217,8 @@ static void MX_SPI1_Init(void)
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -229,7 +230,7 @@ static void MX_SPI1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN SPI1_Init 2 */
-
+  
   /* USER CODE END SPI1_Init 2 */
 
 }
@@ -262,7 +263,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  // 开启接收中断，空闲中断
+  // �?启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE | UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -408,7 +409,7 @@ void spi_flash_test(void)
 /*SD 测试 */
 void spi_sd_test(void)
 {
-  /* SD卡测试 */
+  /* SD卡测�? */
   printf("SD!\n");
   uint8_t error = SD_Init();
   if (error)
@@ -428,7 +429,7 @@ void spi_sd_test(void)
     memset(write_buf, 0x55, 512);
 
     if (SD_WriteBlock(2048, write_buf) == 0)
-    { // 使用2048块避免覆盖重要区域
+    { // 使用2048块避免覆盖重要区�?
       printf("Write Success!\n");
       HAL_Delay(10);
 

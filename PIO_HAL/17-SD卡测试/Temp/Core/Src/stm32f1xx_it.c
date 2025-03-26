@@ -218,18 +218,18 @@ void EXTI3_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)//接收到一个字节，进入�??次接收中�??
+  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)//接收到一个字节，进入�???次接收中�???
   {
-      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); //将接收的数据存入rx_buff�??
-      if(rx_cnt >= 100) rx_cnt = 0;                //每包数据不能超过接收buff的�?�长�??
+      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); //将接收的数据存入rx_buff�???
+      if(rx_cnt >= 100) rx_cnt = 0;                //每包数据不能超过接收buff的�?�长�???
       __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_RXNE);//清除接收中断标志
   }
 
   if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)//接收完数据后进入空闲中断
   {
-   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//这条语句对空闲中断无�??
-      __HAL_UART_CLEAR_PEFLAG(&huart1);//使用这条完成idle中断的清零，否则会一直进入中�??
-      rx_done = 1; //�??测到空闲状�?�，置位接收完成�??
+   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//这条语句对空闲中断无�???
+      __HAL_UART_CLEAR_PEFLAG(&huart1);//使用这条完成idle中断的清零，否则会一直进入中�???
+      rx_done = 1; //�???测到空闲状�?�，置位接收完成�???
   }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);

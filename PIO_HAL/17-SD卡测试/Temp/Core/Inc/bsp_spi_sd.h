@@ -30,5 +30,5 @@ uint8_t SD_Init(void);
 uint8_t SD_ReadBlock(uint32_t block_addr, uint8_t *buffer);
 uint8_t SD_WriteBlock(uint32_t block_addr, uint8_t *buffer);
 uint32_t SD_GetCapacity(void);
-
+uint8_t SPI_ReadWriteByte(uint8_t TxData);
 #endif
