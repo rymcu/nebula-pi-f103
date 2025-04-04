@@ -71,9 +71,9 @@ void CAN_Test(void);
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -102,8 +102,10 @@ int main(void)
   MX_USART1_UART_Init();
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(1000);
+ 
   filter_init();
+ 
+  HAL_Delay(1000);
   CAN_Test();
   /* USER CODE END 2 */
 
@@ -135,22 +137,23 @@ int main(void)
       rx_cnt = 0; // 清除接收长度
     }
     HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // 切换亮�?�灭状�?�，添加此语句防止优�?
+    HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
@@ -164,8 +167,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -179,10 +183,10 @@ void SystemClock_Config(void)
 }
 
 /**
- * @brief CAN Initialization Function
- * @param None
- * @retval None
- */
+  * @brief CAN Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_CAN_Init(void)
 {
 
@@ -207,24 +211,31 @@ static void MX_CAN_Init(void)
   hcan.Init.TransmitFifoPriority = DISABLE;
   if (HAL_CAN_Init(&hcan) != HAL_OK)
   {
+    printf("CAN init failed!\r\n");
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
-    //启动CAN
-    if(HAL_CAN_Start(&hcan) != HAL_OK)
-    {
-        printf("CAN start Fail!\r\n");
-    }
     //开启中断,FIFO 0接收消息中断
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
     HAL_CAN_ActivateNotification(&hcan,CAN_IT_RX_FIFO0_MSG_PENDING);
+    HAL_StatusTypeDef ret;
+    HAL_Delay(100);
+    ret=HAL_CAN_Start(&hcan);
+    if(ret) //启动CAN
+    {
+        printf("CAN start failed!ret:%d\r\n",ret);
+
+    }
   /* USER CODE END CAN_Init 2 */
+
 }
 
 /**
- * @brief USART1 Initialization Function
- * @param None
- * @retval None
- */
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_USART1_UART_Init(void)
 {
 
@@ -251,18 +262,19 @@ static void MX_USART1_UART_Init(void)
   // �?启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE | UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
+
 }
 
 /**
- * @brief GPIO Initialization Function
- * @param None
- * @retval None
- */
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  /* USER CODE BEGIN MX_GPIO_Init_1 */
-  /* USER CODE END MX_GPIO_Init_1 */
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -277,7 +289,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : K1_Pin K2_Pin */
-  GPIO_InitStruct.Pin = K1_Pin | K2_Pin;
+  GPIO_InitStruct.Pin = K1_Pin|K2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -302,8 +314,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(LED1_GPIO_Port, &GPIO_InitStruct);
 
-  /* USER CODE BEGIN MX_GPIO_Init_2 */
-  /* USER CODE END MX_GPIO_Init_2 */
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -342,6 +354,7 @@ PUTCHAR_PROTOTYPE
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     HAL_StatusTypeDef HAL_Status;
+    printf("CAN Rx Interrupt\r\n");
     if(hcan->Instance == CAN1)
     {
         HAL_Status = HAL_CAN_GetRxMessage(hcan,CAN_RX_FIFO0,&RxHeaderCAN,RxDataCAN);
@@ -369,14 +382,15 @@ void CAN_Test(void)
     printf("CAN send data\r\n");
     for (int i = 0; i < 8; ++i) printf(" 0x%02x",TxDataCAN[i]);
     printf("\r\n");
-    HAL_CAN_AddTxMessage(&hcan,&TxHeaderCAN,TxDataCAN,&TxMailBox);
+    HAL_Status = HAL_CAN_AddTxMessage(&hcan,&TxHeaderCAN,TxDataCAN,&TxMailBox);
+    printf("CAN send status:%d\r\n",HAL_Status);
 }
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -388,14 +402,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

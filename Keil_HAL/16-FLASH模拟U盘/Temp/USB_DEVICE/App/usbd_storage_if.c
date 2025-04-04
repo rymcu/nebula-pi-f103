@@ -62,15 +62,15 @@
   * @{
   */
 
-//#define STORAGE_LUN_NBR                  1
-//#define STORAGE_BLK_NBR                  0x10000
-//#define STORAGE_BLK_SIZ                  0x200
+#define STORAGE_LUN_NBR                  1
+#define STORAGE_BLK_NBR                  0x10000
+#define STORAGE_BLK_SIZ                  0x200
 
 /* USER CODE BEGIN PRIVATE_DEFINES */
 #define STORAGE_LUN_NBR                  1
-#define STORAGE_BLK_NBR                  256*8 //256*8ÉÈÇø=8MByte
-#define STORAGE_BLK_SIZ                  4096  //Ã¿¸öÉÈÇø4096Byte
-#define START_SECTOR                     0     //¿ªÊ¼ÉÈÇø
+#define STORAGE_BLK_NBR                  256*8 //256*8ï¿½ï¿½ï¿½ï¿½=8MByte
+#define STORAGE_BLK_SIZ                  4096  //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4096Byte
+#define START_SECTOR                     0     //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END PRIVATE_DEFINES */
 
 /**

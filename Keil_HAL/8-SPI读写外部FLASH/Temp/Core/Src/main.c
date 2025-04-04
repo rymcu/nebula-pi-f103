@@ -21,16 +21,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #include "string.h"
-#include "bsp_spi_flash.h"//SPI flashÇý¶¯
+#include "bsp_spi_flash.h"//SPI flashï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -51,7 +51,7 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-SPI_HandleTypeDef *hspi_flash = &hspi1; // ±ØÐë¶¨Òå
+SPI_HandleTypeDef *hspi_flash = &hspi1; // ï¿½ï¿½ï¿½ë¶¨ï¿½ï¿½
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,7 +61,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
-void spi_flash_test(void);//SPI flash²âÊÔº¯Êý
+void spi_flash_test(void);//SPI flashï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -103,7 +103,7 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 	HAL_Delay(1000);
-  spi_flash_test();//SPI flash²âÊÔº¯Êý
+  spi_flash_test();//SPI flashï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -258,7 +258,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -353,23 +353,23 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
-//ÖØÐ´GPIOÖÐ¶Ï´¦Àíº¯Êý
+//ï¿½ï¿½Ð´GPIOï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //·­×ªLED1
+    //ï¿½ï¿½×ªLED1
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    //´òÓ¡ÖÐ¶Ï´¦ÀíÐÅÏ¢
+    //ï¿½ï¿½Ó¡ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     printf("K2 ExTi interrput!\r\n");
 }
 void spi_flash_test(void)
 {
-  /* ²âÊÔFlashÇý¶¯ */
+  /* ï¿½ï¿½ï¿½ï¿½Flashï¿½ï¿½ï¿½ï¿½ */
   uint16_t manu_id, dev_id;
   uint8_t jedec_id[3];
   uint8_t write_buf[256] = {0xAA, 0xBB, 0xCC, 0xDD};
@@ -387,7 +387,7 @@ void spi_flash_test(void)
   }
   printf("Flash Write Data: 0x%02X, 0x%02X, 0x%02X, 0x%02X\r\n", write_buf[0], write_buf[1], write_buf[2], write_buf[3]);
   printf("Flash Read  Data: 0x%02X, 0x%02X, 0x%02X, 0x%02X\r\n", read_buf[0], read_buf[1], read_buf[2], read_buf[3]);
-  // ÑéÖ¤Êý¾Ý
+  // ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½
   if (memcmp(write_buf, read_buf, 4) == 0) {
     printf("\r\nSPI Flash Test Passed!\r\n");
   }

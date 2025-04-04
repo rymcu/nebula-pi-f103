@@ -36,10 +36,10 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-//È«¾Ö±äÁ¿¶¨Òå
-extern uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-extern uint8_t rx_done; //½ÓÊÕÍê³É±êÖ¾
-extern uint8_t rx_cnt;//½ÓÊÕÊý¾Ý³¤¶È
+//È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+extern uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+extern uint8_t rx_done; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+extern uint8_t rx_cnt;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

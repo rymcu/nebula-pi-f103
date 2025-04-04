@@ -21,14 +21,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -106,17 +106,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if(rx_done == 1)//ÅÐ¶ÁÊÇ·ñ½ÓÊÕÍê³É
+    if(rx_done == 1)//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        rx_done = 0;//Çå³ý½ÓÊÕ±êÖ¾
-        //Êý¾Ý´¦Àí£¬´òÓ¡½ÓÊÕ³¤¶È¡¢½ÓÊÕµÄÊý¾Ý
+        rx_done = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ö¾
+        //ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Õ³ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
         printf("length of rx data: %d!\r\n",rx_cnt);
         for(int i = 0;i<rx_cnt;i++) printf("%c",rx_buff[i]);
         printf("\r\n");
 
-        rx_cnt =0;//Çå³ý½ÓÊÕ³¤¶È
+        rx_cnt =0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½
     } 
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ÇÐ»»ÁÁ¡¢Ãð×´Ì¬£¬Ìí¼Ó´ËÓï¾ä·ÀÖ¹ÓÅ»¯ 		
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Å»ï¿½ 		
   }
   /* USER CODE END 3 */
 }
@@ -189,7 +189,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -254,89 +254,89 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
 /**
- * @brief ÍùÄÚ²¿FLASHÐ´ÈëÊý¾Ý
- * @param addr Ð´ÈëµØÖ·
- * @param pdata ´æ´¢´ýÐ´Êý¾Ý
+ * @brief ï¿½ï¿½ï¿½Ú²ï¿½FLASHÐ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param addr Ð´ï¿½ï¿½ï¿½Ö·
+ * @param pdata ï¿½æ´¢ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
  * @retval None
  */
 void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
 {
-  // ¶¨Òå¾Ö²¿±äÁ¿
+  // ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½
   uint32_t PageError = 0;
   HAL_StatusTypeDef HAL_Status;
-  // ²Á³ýÅäÖÃÐÅÏ¢½á¹¹Ìå£¬°üÀ¨²Á³ýµØÖ·¡¢·½Ê½¡¢Ò³ÊýµÈ
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½á¹¹ï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
   FLASH_EraseInitTypeDef pEraseInit;
-  pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES; // °´Ò³²Á³ý
-  pEraseInit.PageAddress = addr;                // ²Á³ýµØÖ·
-  pEraseInit.NbPages = 1;                       // ²Á³ýÒ³ÊýÁ¿
-  // step1 ½âËøÄÚ²¿FLASH£¬ÔÊÐí¶ÁÐ´¹¦ÄÜ
+  pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES; // ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
+  pEraseInit.PageAddress = addr;                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+  pEraseInit.NbPages = 1;                       // ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
+  // step1 ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½FLASHï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
   HAL_FLASH_Unlock();
-  // step2 ¿ªÊ¼²Á³ýaddr¶ÔÓ¦Ò³
-  HAL_Status = HAL_FLASHEx_Erase(&pEraseInit, &PageError); // ²Á³ý
+  // step2 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½addrï¿½ï¿½Ó¦Ò³
+  HAL_Status = HAL_FLASHEx_Erase(&pEraseInit, &PageError); // ï¿½ï¿½ï¿½ï¿½
   if (HAL_Status != HAL_OK)
-    printf("ÄÚ²¿FlASH²Á³ýÊ§°Ü!\r\n");
-  // step3 Ð´ÈëÊý¾Ý
+    printf("ï¿½Ú²ï¿½FlASHï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½!\r\n");
+  // step3 Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, addr, Pdata);
-  // step4 Ëø¶¨FLASH
+  // step4 ï¿½ï¿½ï¿½ï¿½FLASH
   HAL_FLASH_Lock();
 }
 /**
- * @brief ¶ÁÈ¡ÄÚ²¿FLASHÊý¾Ý
- * @param addr ¶ÁÈ¡µØÖ·
- * @retval ¶Á³öµÄÊý¾Ý
+ * @brief ï¿½ï¿½È¡ï¿½Ú²ï¿½FLASHï¿½ï¿½ï¿½ï¿½
+ * @param addr ï¿½ï¿½È¡ï¿½ï¿½Ö·
+ * @retval ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 uint32_t FLASH_Inside_Rd(uint32_t addr)
 {
-  // ¶¨Òå¾Ö²¿±äÁ¿
+  // ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½
   uint32_t RdData = 0;
-  // step1 ½âËøÄÚ²¿FLASH£¬ÔÊÐí¶ÁÐ´¹¦ÄÜ
+  // step1 ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½FLASHï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
   HAL_FLASH_Unlock();
   RdData = *(__IO uint32_t *)addr;
-  // step2 Ëø¶¨FLASH
+  // step2 ï¿½ï¿½ï¿½ï¿½FLASH
   HAL_FLASH_Lock();
 
   return RdData;
 }
 /**
- * @brief ÄÚ²¿FLASH¶ÁÐ´²âÊÔ
+ * @brief ï¿½Ú²ï¿½FLASHï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
  */
 void FLASH_Inside_Test(void)
 {
   printf("\r\n\r\n------------------on chip FLASH write/read test------------------\r\n\r\n");
-  uint32_t addr = 0x08010000;   // È·±£¸ÃµØÖ·ÄÚ²¿FLASHÊÇ¿ÕÓàµÄ£¡
-  uint32_t WrData = 0x01234567; // ´ýÐ´ÈëÊý¾Ý
-  uint32_t RdData = 0;          // ´æ´¢¶ÁÈ¡Êý¾Ý
+  uint32_t addr = 0x08010000;   // È·ï¿½ï¿½ï¿½Ãµï¿½Ö·ï¿½Ú²ï¿½FLASHï¿½Ç¿ï¿½ï¿½ï¿½Ä£ï¿½
+  uint32_t WrData = 0x01234567; // ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  uint32_t RdData = 0;          // ï¿½æ´¢ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 
   printf("addr:0x%x write data:0x%x\r\n", addr, WrData);
-  FLASH_Inside_Wr(addr, WrData);  // Ð´ÈëÊý¾Ý
-  RdData = FLASH_Inside_Rd(addr); // ¶ÁÈ¡Êý¾Ý
+  FLASH_Inside_Wr(addr, WrData);  // Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  RdData = FLASH_Inside_Rd(addr); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
   printf("addr:0x%x  read data:0x%x\r\n", addr, RdData);
 }
 /**
- * @brief »ñÈ¡MCUÉè±¸ÐÅÏ¢
+ * @brief ï¿½ï¿½È¡MCUï¿½è±¸ï¿½ï¿½Ï¢
  */
 void Get_MCU_Info(void)
 {
     printf("\r\n\r\n------------------get mcu information------------------\r\n\r\n");
-    uint32_t  FLASH_Size_Addr = 0x1FFFF7E0;//FLASH´óÐ¡´æ´¢µØÖ·
-    //»ñÈ¡´æ´¢Æ÷´óÐ¡
+    uint32_t  FLASH_Size_Addr = 0x1FFFF7E0;//FLASHï¿½ï¿½Ð¡ï¿½æ´¢ï¿½ï¿½Ö·
+    //ï¿½ï¿½È¡ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ð¡
     printf("FLASH  Size: %dKB\r\n",*(uint16_t *)FLASH_Size_Addr);
-    //»ñÈ¡HAL°æ±¾
+    //ï¿½ï¿½È¡HALï¿½æ±¾
     uint32_t HALVer = HAL_GetHalVersion();
     printf("HAL Version: V%d.%d.%d\r\n",HALVer>>24,(HALVer>>16)&0xFF,(HALVer>>8)&0xFF);
-   //»ñÈ¡±£ÁôID£¿
+   //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½
     printf("Revision ID: 0x%X\r\n",HAL_GetREVID());
-    //»ñÈ¡È«ÇòÎ¨Ò»UID
+    //ï¿½ï¿½È¡È«ï¿½ï¿½Î¨Ò»UID
     printf("Unique ID(UID): 0x%08X %08X %08X\r\n",HAL_GetUIDw0(),HAL_GetUIDw1(),HAL_GetUIDw2());
 
-    //»ñÈ¡Éè±¸ID
+    //ï¿½ï¿½È¡ï¿½è±¸ID
     printf("Device ID or Chip ID or Product ID(PID): 0x%x\r\n",HAL_GetDEVID());
 
 }

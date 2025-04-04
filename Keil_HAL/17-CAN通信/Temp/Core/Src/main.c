@@ -21,19 +21,19 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
-//CANÈ«¾Ö±äÁ¿
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+//CANÈ«ï¿½Ö±ï¿½ï¿½ï¿½
 CAN_TxHeaderTypeDef TxHeaderCAN;
 CAN_RxHeaderTypeDef RxHeaderCAN;
 uint8_t TxDataCAN[8],RxDataCAN[8];
-uint8_t CAN_Rx_Flag=0;//CAN½ÓÊÕ±êÖ¾
+uint8_t CAN_Rx_Flag=0;//CANï¿½ï¿½ï¿½Õ±ï¿½Ö¾
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -114,25 +114,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		      //´¦ÀíCAN½ÓÊÕÊý¾Ý
+		      //ï¿½ï¿½ï¿½ï¿½CANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       if(CAN_Rx_Flag)
       {
-          CAN_Rx_Flag = 0;//Çå¿ÕCAN½ÓÊÕ±êÖ¾
+          CAN_Rx_Flag = 0;//ï¿½ï¿½ï¿½CANï¿½ï¿½ï¿½Õ±ï¿½Ö¾
 					printf("CAN receive data\r\n");
           for(int i = 0;i<8;i++) printf(" 0x%02x",RxDataCAN[i]);
           printf("\r\n");
       }
-    if(rx_done == 1)//ÅÐ¶ÁÊÇ·ñ½ÓÊÕÍê³É
+    if(rx_done == 1)//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        rx_done = 0;//Çå³ý½ÓÊÕ±êÖ¾
-        //Êý¾Ý´¦Àí£¬´òÓ¡½ÓÊÕ³¤¶È¡¢½ÓÊÕµÄÊý¾Ý
+        rx_done = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ö¾
+        //ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Õ³ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
         printf("length of rx data: %d!\r\n",rx_cnt);
         for(int i = 0;i<rx_cnt;i++) printf("%c",rx_buff[i]);
         printf("\r\n");
 
-        rx_cnt =0;//Çå³ý½ÓÊÕ³¤¶È
+        rx_cnt =0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½
     } 
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ÇÐ»»ÁÁ¡¢Ãð×´Ì¬£¬Ìí¼Ó´ËÓï¾ä·ÀÖ¹ÓÅ»¯ 		
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Å»ï¿½ 		
   }
   /* USER CODE END 3 */
 }
@@ -209,12 +209,12 @@ static void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
-    //Æô¶¯CAN
+    //ï¿½ï¿½ï¿½ï¿½CAN
     if(HAL_CAN_Start(&hcan) != HAL_OK)
     {
         printf("CAN start Fail!\r\n");
     }
-    //¿ªÆôÖÐ¶Ï,FIFO 0½ÓÊÕÏûÏ¢ÖÐ¶Ï
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½,FIFO 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð¶ï¿½
     HAL_CAN_ActivateNotification(&hcan,CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END CAN_Init 2 */
 
@@ -248,7 +248,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -313,17 +313,17 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
 void filter_init(void)
 {
     HAL_StatusTypeDef HAL_Status;
     CAN_FilterTypeDef Filter0;
-    Filter0.FilterBank = 1;//ÂË²¨Æ÷±àºÅ
+    Filter0.FilterBank = 1;//ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Filter0.FilterMode = CAN_FILTERMODE_IDMASK;
     Filter0.FilterScale = CAN_FILTERSCALE_32BIT;
     Filter0.FilterIdHigh = 0x00;
@@ -340,7 +340,7 @@ void filter_init(void)
         Error_Handler();
     }
 }
-//ÖØ¶¨ÒåCAN½ÓÊÕÖÐ¶Ï»Øµ÷º¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½CANï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     HAL_StatusTypeDef HAL_Status;
@@ -349,14 +349,14 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         HAL_Status = HAL_CAN_GetRxMessage(hcan,CAN_RX_FIFO0,&RxHeaderCAN,RxDataCAN);
         if(HAL_Status == HAL_OK)
         {
-            //´¦Àí½ÓÊÕÊý¾Ý
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             CAN_Rx_Flag = 1;
         }
     }
 }
 void CAN_Test(void)
 {
-    //·¢ËÍÊý¾ÝCAN
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CAN
     TxHeaderCAN.ExtId = 0x1800F001;
     TxHeaderCAN.DLC = 8;
     TxHeaderCAN.IDE = CAN_ID_STD;

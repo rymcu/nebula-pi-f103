@@ -98,14 +98,14 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     char temp;
-    // »ñÈ¡KEYµÄ×´Ì¬£¬°´ÏÂÎª0£¬µ¯ÆðÎª1
-    temp = HAL_GPIO_ReadPin(K1_GPIO_Port, K1_Pin); // »ñÈ¡°´¼üKEY1×´Ì¬
+    // ï¿½ï¿½È¡KEYï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª1
+    temp = HAL_GPIO_ReadPin(K1_GPIO_Port, K1_Pin); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½KEY1×´Ì¬
     if (temp == 0)
-    { // °´ÏÂÊ±£¬µãÁÁLED1
+    { // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LED1
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
     }
     else
-    { // µ¯ÆðÊ±£¬¹Ø±ÕLED1
+    { // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ø±ï¿½LED1
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
     }
   }

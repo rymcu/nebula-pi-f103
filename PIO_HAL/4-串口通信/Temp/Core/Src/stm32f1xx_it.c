@@ -218,7 +218,7 @@ void USART1_IRQHandler(void)
       rx_done = 1; //检测到空闲状态，置位接收完成位
   }
   /* USER CODE END USART1_IRQn 0 */
-  //HAL_UART_IRQHandler(&huart1);//注释系统自带中断处理，使用上面语句完成中断处理
+  HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
 
   /* USER CODE END USART1_IRQn 1 */

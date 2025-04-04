@@ -21,14 +21,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -53,11 +53,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-//·¢ËÍRGBÊý¾Ý£¬ÏÔÊ¾¶ÔÓ¦ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½RGBï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦ï¿½ï¿½É«
 void sendRGB(uint8_t r, uint8_t g, uint8_t b);
-// ·¢ËÍÒ»¸ö×Ö½Ú
+// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
 void sendByte(uint8_t byte);
-// ·¢ËÍµ¥¸ö±ÈÌØ
+// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void sendBit(uint8_t bitVal);
 /* USER CODE END PFP */
 
@@ -97,11 +97,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //´®¿Ú·¢ËÍÊý¾Ý²âÊÔ
+  //ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
   unsigned char Sendbuf[] = "RYMCU nebula-pi usart1 test!\r\n";
-  HAL_UART_Transmit(&huart1,Sendbuf, sizeof(Sendbuf),HAL_MAX_DELAY); // ´®¿Ú·¢ËÍÊý¾Ý
+  HAL_UART_Transmit(&huart1,Sendbuf, sizeof(Sendbuf),HAL_MAX_DELAY); // ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   HAL_Delay(1000);
-  //printf´òÓ¡Êý¾Ý²âÊÔ
+  //printfï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
   printf("hello,enjoy!\r\n");
   HAL_Delay(1000);
   /* USER CODE END 2 */
@@ -113,11 +113,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    sendRGB(0, 25, 0); //ÉèÖÃÂÌÉ«
+    sendRGB(0, 25, 0); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     HAL_Delay(1000);
-    sendRGB(0, 0, 25);//ÉèÖÃÀ¶É«
+    sendRGB(0, 0, 25);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     HAL_Delay(1000);
-    sendRGB(25, 0, 0);//ÉèÖÃºìÉ«
+    sendRGB(25, 0, 0);//ï¿½ï¿½ï¿½Ãºï¿½É«
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
@@ -191,7 +191,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -276,28 +276,28 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
-//ÖØÐ´GPIOÖÐ¶Ï´¦Àíº¯Êý
+//ï¿½ï¿½Ð´GPIOï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //·­×ªLED1
+    //ï¿½ï¿½×ªLED1
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    //´òÓ¡ÖÐ¶Ï´¦ÀíÐÅÏ¢
+    //ï¿½ï¿½Ó¡ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     printf("K2 ExTi interrput!\r\n");
 }
-//·¢ËÍRGBÊý¾Ý£¬ÏÔÊ¾¶ÔÓ¦ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½RGBï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦ï¿½ï¿½É«
 void sendRGB(uint8_t r, uint8_t g, uint8_t b)
 {
     sendByte(g);
     sendByte(r);
     sendByte(b);
 }
-// ·¢ËÍÒ»¸ö×Ö½Ú
+// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
 void sendByte(uint8_t byte)
 {
     for (int i = 0; i < 8; i++)
@@ -306,19 +306,19 @@ void sendByte(uint8_t byte)
         byte <<= 1;
     }
 }
-// ·¢ËÍµ¥¸ö±ÈÌØ
+// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void sendBit(uint8_t bitVal)
 {
     if (bitVal)
     {
         HAL_GPIO_WritePin(WS2812_GPIO_Port, WS2812_Pin, GPIO_PIN_SET);
-        // ¸ù¾ÝWS2812Ê±ÐòÒªÇó£¬¸ßµçÆ½Ê±¼ä
+        // ï¿½ï¿½ï¿½ï¿½WS2812Ê±ï¿½ï¿½Òªï¿½ó£¬¸ßµï¿½Æ½Ê±ï¿½ï¿½
         for (int i = 0; i < 10; i++)
         {
             __NOP();
         }
         HAL_GPIO_WritePin(WS2812_GPIO_Port, WS2812_Pin, GPIO_PIN_RESET);
-        // µÍµçÆ½Ê±¼ä
+        // ï¿½Íµï¿½Æ½Ê±ï¿½ï¿½
         for (int j = 0; j < 5; j++)
         {
             __NOP();

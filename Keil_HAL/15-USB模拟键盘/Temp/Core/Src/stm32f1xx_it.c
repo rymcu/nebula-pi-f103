@@ -233,18 +233,18 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)//½ÓÊÕµ½Ò»¸ö×Ö½Ú£¬½øÈëÒ»´Î½ÓÊÕÖÐ¶Ï
+  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)//ï¿½ï¿½ï¿½Õµï¿½Ò»ï¿½ï¿½ï¿½Ö½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   {
-      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); //½«½ÓÊÕµÄÊý¾Ý´æÈërx_buffÖÐ
-      if(rx_cnt >= 100) rx_cnt = 0;                //Ã¿°üÊý¾Ý²»ÄÜ³¬¹ý½ÓÊÕbuffµÄ×Ü³¤¶È
-      __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_RXNE);//Çå³ý½ÓÊÕÖÐ¶Ï±êÖ¾
+      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); //ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½rx_buffï¿½ï¿½
+      if(rx_cnt >= 100) rx_cnt = 0;                //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½Ü³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½buffï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½
+      __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_RXNE);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
   }
 
-  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)//½ÓÊÕÍêÊý¾Ýºó½øÈë¿ÕÏÐÖÐ¶Ï
+  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   {
-   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//ÕâÌõÓï¾ä¶Ô¿ÕÏÐÖÐ¶ÏÎÞÐ§
-      __HAL_UART_CLEAR_PEFLAG(&huart1);//Ê¹ÓÃÕâÌõÍê³ÉidleÖÐ¶ÏµÄÇåÁã£¬·ñÔò»áÒ»Ö±½øÈëÖÐ¶Ï
-      rx_done = 1; //¼ì²âµ½¿ÕÏÐ×´Ì¬£¬ÖÃÎ»½ÓÊÕÍê³ÉÎ»
+   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ð§
+      __HAL_UART_CLEAR_PEFLAG(&huart1);//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idleï¿½Ð¶Ïµï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+      rx_done = 1; //ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
   }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);

@@ -21,25 +21,25 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-// EEPROM²âÊÔ
+// EEPROMï¿½ï¿½ï¿½ï¿½
 void E2PROM_I2C_Test(void);
-// I2CÈ«¾Ö±äÁ¿
-#define ADDR_WR_AT24CXX 0xA0 // Ð´Æ÷¼þµØÖ·
-#define ADDR_RD_AT24CXX 0xA1 // ¶ÁÆ÷¼þµØÖ·
+// I2CÈ«ï¿½Ö±ï¿½ï¿½ï¿½
+#define ADDR_WR_AT24CXX 0xA0 // Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+#define ADDR_RD_AT24CXX 0xA1 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 #define BuffSize 256
-uint8_t Wr_buff[BuffSize], Rd_buff[BuffSize]; // ¶ÁÐ´Êý¾Ýbuff
+uint8_t Wr_buff[BuffSize], Rd_buff[BuffSize]; // ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½buff
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,11 +62,11 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
-//·¢ËÍRGBÊý¾Ý£¬ÏÔÊ¾¶ÔÓ¦ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½RGBï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦ï¿½ï¿½É«
 void sendRGB(uint8_t r, uint8_t g, uint8_t b);
-// ·¢ËÍÒ»¸ö×Ö½Ú
+// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
 void sendByte(uint8_t byte);
-// ·¢ËÍµ¥¸ö±ÈÌØ
+// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void sendBit(uint8_t bitVal);
 /* USER CODE END PFP */
 
@@ -107,7 +107,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  E2PROM_I2C_Test();//I2CÍ¨ÐÅ²âÊÔ
+  E2PROM_I2C_Test();//I2CÍ¨ï¿½Å²ï¿½ï¿½ï¿½
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,11 +117,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    sendRGB(0, 25, 0); //ÉèÖÃÂÌÉ«
+    sendRGB(0, 25, 0); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     HAL_Delay(1000);
-    sendRGB(0, 0, 25);//ÉèÖÃÀ¶É«
+    sendRGB(0, 0, 25);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     HAL_Delay(1000);
-    sendRGB(25, 0, 0);//ÉèÖÃºìÉ«
+    sendRGB(25, 0, 0);//ï¿½ï¿½ï¿½Ãºï¿½É«
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
@@ -229,7 +229,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -314,28 +314,28 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
-//ÖØÐ´GPIOÖÐ¶Ï´¦Àíº¯Êý
+//ï¿½ï¿½Ð´GPIOï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //·­×ªLED1
+    //ï¿½ï¿½×ªLED1
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    //´òÓ¡ÖÐ¶Ï´¦ÀíÐÅÏ¢
+    //ï¿½ï¿½Ó¡ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     printf("K2 ExTi interrput!\r\n");
 }
-//·¢ËÍRGBÊý¾Ý£¬ÏÔÊ¾¶ÔÓ¦ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½RGBï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦ï¿½ï¿½É«
 void sendRGB(uint8_t r, uint8_t g, uint8_t b)
 {
     sendByte(g);
     sendByte(r);
     sendByte(b);
 }
-// ·¢ËÍÒ»¸ö×Ö½Ú
+// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
 void sendByte(uint8_t byte)
 {
     for (int i = 0; i < 8; i++)
@@ -344,19 +344,19 @@ void sendByte(uint8_t byte)
         byte <<= 1;
     }
 }
-// ·¢ËÍµ¥¸ö±ÈÌØ
+// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void sendBit(uint8_t bitVal)
 {
     if (bitVal)
     {
         HAL_GPIO_WritePin(WS2812_GPIO_Port, WS2812_Pin, GPIO_PIN_SET);
-        // ¸ù¾ÝWS2812Ê±ÐòÒªÇó£¬¸ßµçÆ½Ê±¼ä
+        // ï¿½ï¿½ï¿½ï¿½WS2812Ê±ï¿½ï¿½Òªï¿½ó£¬¸ßµï¿½Æ½Ê±ï¿½ï¿½
         for (int i = 0; i < 10; i++)
         {
             __NOP();
         }
         HAL_GPIO_WritePin(WS2812_GPIO_Port, WS2812_Pin, GPIO_PIN_RESET);
-        // µÍµçÆ½Ê±¼ä
+        // ï¿½Íµï¿½Æ½Ê±ï¿½ï¿½
         for (int j = 0; j < 5; j++)
         {
             __NOP();
@@ -376,21 +376,21 @@ void sendBit(uint8_t bitVal)
         }
     }
 }
-// EEPROM²âÊÔ
+// EEPROMï¿½ï¿½ï¿½ï¿½
 void E2PROM_I2C_Test(void)
 {
   HAL_StatusTypeDef error;
   uint8_t length = 10;
   for (uint16_t i = 0; i < 256; i++)
     Wr_buff[i] = i;
-  // AT24CxxµØÖ·00¿ªÊ¼Ð´Èë8ByteÊý¾Ý
+  // AT24Cxxï¿½ï¿½Ö·00ï¿½ï¿½Ê¼Ð´ï¿½ï¿½8Byteï¿½ï¿½ï¿½ï¿½
   error = HAL_I2C_Mem_Write(&hi2c1, ADDR_WR_AT24CXX, 0x00, I2C_MEMADD_SIZE_16BIT, Wr_buff, length, 1000);
   if (error == HAL_OK)
     printf("e2prom write done!\r\n");
   else
     printf("e2prom write fail!\r\n");
   HAL_Delay(1000);
-  // ´ÓµØÖ·0x00¿ªÊ¼¶Á8ByteÊý¾Ý£¬²¢´òÓ¡¡£
+  // ï¿½Óµï¿½Ö·0x00ï¿½ï¿½Ê¼ï¿½ï¿½8Byteï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
   error = HAL_I2C_Mem_Read(&hi2c1, ADDR_RD_AT24CXX, 0x00, I2C_MEMADD_SIZE_16BIT, Rd_buff, length, 1000);
   if (error == HAL_OK)
   {

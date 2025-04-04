@@ -97,20 +97,20 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //Ìí¼Ó´úÂë£¬µãÁÁLED1£¬LED2
+    //ï¿½ï¿½Ó´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½LED1ï¿½ï¿½LED2
     HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
     HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_RESET);
     
-    /* //ÉÁË¸LED1
-    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ÇÐ»»ÁÁ¡¢Ãð×´Ì¬
-    HAL_Delay(500);//ÑÓÊ±500ms
+    /* //ï¿½ï¿½Ë¸LED1
+    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+    HAL_Delay(500);//ï¿½ï¿½Ê±500ms
     */
    
-    /* //Á÷Ë®µÆ
-    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ÇÐ»»ÁÁ¡¢Ãð×´Ì¬
-    HAL_Delay(500);//ÑÓÊ±500ms
-    HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);//ÇÐ»»ÁÁ¡¢Ãð×´Ì¬
-    HAL_Delay(500);//ÑÓÊ±500ms
+    /* //ï¿½ï¿½Ë®ï¿½ï¿½
+    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+    HAL_Delay(500);//ï¿½ï¿½Ê±500ms
+    HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+    HAL_Delay(500);//ï¿½ï¿½Ê±500ms
     */		
   }
   /* USER CODE END 3 */

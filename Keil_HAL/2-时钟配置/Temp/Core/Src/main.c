@@ -97,9 +97,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //ÉÁË¸LED1
-    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ÇÐ»»ÁÁÃð×´
-    HAL_Delay(1000);//ÑÓÊ±1000ms
+    //ï¿½ï¿½Ë¸LED1
+    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½×´
+    HAL_Delay(1000);//ï¿½ï¿½Ê±1000ms
   }
   /* USER CODE END 3 */
 }

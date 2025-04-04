@@ -21,14 +21,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printfº¯Êý¿â
+#include "stdio.h"//printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-uint8_t rx_buff[100];  //½ÓÊÕ»º´æ
-uint8_t rx_done = 0; //½ÓÊÕÍê³É±êÖ¾
-uint8_t rx_cnt = 0;//½ÓÊÕÊý¾Ý³¤¶È
+uint8_t rx_buff[100];  //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
+uint8_t rx_done = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+uint8_t rx_cnt = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -92,11 +92,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //´®¿Ú·¢ËÍÊý¾Ý²âÊÔ
+  //ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
   unsigned char Sendbuf[] = "RYMCU nebula-pi usart1 test!\r\n";
-  HAL_UART_Transmit(&huart1,Sendbuf, sizeof(Sendbuf),HAL_MAX_DELAY); // ´®¿Ú·¢ËÍÊý¾Ý
+  HAL_UART_Transmit(&huart1,Sendbuf, sizeof(Sendbuf),HAL_MAX_DELAY); // ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   HAL_Delay(1000);
-  //printf´òÓ¡Êý¾Ý²âÊÔ
+  //printfï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
   printf("hello,enjoy!\r\n");
   HAL_Delay(1000);
   /* USER CODE END 2 */
@@ -108,17 +108,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if(rx_done == 1)//ÅÐ¶ÁÊÇ·ñ½ÓÊÕÍê³É
+    if(rx_done == 1)//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        rx_done = 0;//Çå³ý½ÓÊÕ±êÖ¾
-        //Êý¾Ý´¦Àí£¬´òÓ¡½ÓÊÕ³¤¶È¡¢½ÓÊÕµÄÊý¾Ý
+        rx_done = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ö¾
+        //ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Õ³ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
         printf("length of rx data: %d!\r\n",rx_cnt);
         for(int i = 0;i<rx_cnt;i++) printf("%c",rx_buff[i]);
         printf("\r\n");
 
-        rx_cnt =0;//Çå³ý½ÓÊÕ³¤¶È
+        rx_cnt =0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½
     } 
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ÇÐ»»ÁÁ¡¢Ãð×´Ì¬£¬Ìí¼Ó´ËÓï¾ä·ÀÖ¹ÓÅ»¯ 		
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Å»ï¿½ 		
   }
   /* USER CODE END 3 */
 }
@@ -191,7 +191,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //¿ªÆô½ÓÊÕÖÐ¶Ï£¬¿ÕÏÐÖÐ¶Ï
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -266,18 +266,18 @@ static void MX_GPIO_Init(void)
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
 #endif /* __GNUC__ */
-//ÖØ¶¨Ïòprintfº¯Êý
+//ï¿½Ø¶ï¿½ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//Êä³öÖ¸Ïò´®¿ÚUSART1
+    HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);//ï¿½ï¿½ï¿½Ö¸ï¿½ò´®¿ï¿½USART1
     return ch;
 }
-//ÖØÐ´GPIOÖÐ¶Ï´¦Àíº¯Êý
+//ï¿½ï¿½Ð´GPIOï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //·­×ªLED1
+    //ï¿½ï¿½×ªLED1
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    //´òÓ¡ÖÐ¶Ï´¦ÀíÐÅÏ¢
+    //ï¿½ï¿½Ó¡ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     printf("K2 ExTi interrput!\r\n");
 }
 /* USER CODE END 4 */
