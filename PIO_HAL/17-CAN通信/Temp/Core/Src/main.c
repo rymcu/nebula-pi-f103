@@ -113,7 +113,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+    /* USER CODE END WHILE */ 
 
     /* USER CODE BEGIN 3 */
     // 处理CAN接收数据
@@ -128,7 +128,7 @@ int main(void)
     if (rx_done == 1) // 判读是否接收完成
     {
       rx_done = 0; // 清除接收标志
-      // 数据处理，打印接收长度�?�接收的数据
+      // 数据处理，打印接收长度接收的数据
       printf("length of rx data: %d!\r\n", rx_cnt);
       for (int i = 0; i < rx_cnt; i++)
         printf("%c", rx_buff[i]);
@@ -136,7 +136,7 @@ int main(void)
 
       rx_cnt = 0; // 清除接收长度
     }
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // 切换亮�?�灭状�?�，添加此语句防止优�?
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // 切换亮灭
     HAL_Delay(100);
   }
   /* USER CODE END 3 */
@@ -354,7 +354,6 @@ PUTCHAR_PROTOTYPE
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     HAL_StatusTypeDef HAL_Status;
-    printf("CAN Rx Interrupt\r\n");
     if(hcan->Instance == CAN1)
     {
         HAL_Status = HAL_CAN_GetRxMessage(hcan,CAN_RX_FIFO0,&RxHeaderCAN,RxDataCAN);
@@ -382,8 +381,8 @@ void CAN_Test(void)
     printf("CAN send data\r\n");
     for (int i = 0; i < 8; ++i) printf(" 0x%02x",TxDataCAN[i]);
     printf("\r\n");
-    HAL_Status = HAL_CAN_AddTxMessage(&hcan,&TxHeaderCAN,TxDataCAN,&TxMailBox);
-    printf("CAN send status:%d\r\n",HAL_Status);
+    HAL_CAN_AddTxMessage(&hcan,&TxHeaderCAN,TxDataCAN,&TxMailBox);
+    
 }
 /* USER CODE END 4 */
 
