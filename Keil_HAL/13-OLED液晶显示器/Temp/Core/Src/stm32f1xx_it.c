@@ -214,7 +214,7 @@ void USART1_IRQHandler(void)
   if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)//���������ݺ��������ж�
   {
    // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//�������Կ����ж���Ч
-      __HAL_UART_CLEAR_PEFLAG(&huart1);//ʹ���������idle�жϵ����㣬�����һֱ�����ж�?
+      __HAL_UART_CLEAR_PEFLAG(&huart1);//ʹ���������idle�жϵ����㣬�����һֱ�����ж�??
       rx_done = 1; //��⵽����״̬����λ�������λ
   }
   /* USER CODE END USART1_IRQn 0 */

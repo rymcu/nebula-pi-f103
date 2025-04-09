@@ -2,11 +2,11 @@
 #define __OLED_H		
 
 #include "stm32f1xx_hal.h"
-#include "stm32f1xx_hal_i2c.h"
+//#include "stm32f1xx_hal_i2c.h"
 #define  u8 unsigned char 
 #define  u32 unsigned int 
 
- extern I2C_HandleTypeDef hi2c1;
+// extern I2C_HandleTypeDef hi2c1;
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
 #define OLED_MODE 0

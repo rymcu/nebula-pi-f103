@@ -331,7 +331,7 @@ PUTCHAR_PROTOTYPE
  */
 void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
 {
-  // ����ֲ�����?
+  // ����ֲ�����??
   uint32_t PageError = 0;
   HAL_StatusTypeDef HAL_Status;
   // ����������Ϣ�ṹ�壬����������ַ����ʽ��ҳ����
@@ -339,7 +339,7 @@ void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
   pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES; // ��ҳ����
   pEraseInit.PageAddress = addr;                // ������ַ
   pEraseInit.NbPages = 1;                       // ����ҳ����
-  // step1 �����ڲ�FLASH�������д����?
+  // step1 �����ڲ�FLASH�������д����??
   HAL_FLASH_Unlock();
   // step2 ��ʼ����addr��Ӧҳ
   HAL_Status = HAL_FLASHEx_Erase(&pEraseInit, &PageError); // ����
@@ -357,9 +357,9 @@ void FLASH_Inside_Wr(uint32_t addr, uint32_t Pdata)
  */
 uint32_t FLASH_Inside_Rd(uint32_t addr)
 {
-  // ����ֲ�����?
+  // ����ֲ�����??
   uint32_t RdData = 0;
-  // step1 �����ڲ�FLASH�������д����?
+  // step1 �����ڲ�FLASH�������д����??
   HAL_FLASH_Unlock();
   RdData = *(__IO uint32_t *)addr;
   // step2 ����FLASH
@@ -373,7 +373,7 @@ uint32_t FLASH_Inside_Rd(uint32_t addr)
 void FLASH_Inside_Test(void)
 {
   printf("\r\n\r\n------------------on chip FLASH write/read test------------------\r\n\r\n");
-  uint32_t addr = 0x08010000;   // ȷ���õ�ַ�ڲ�FLASH�ǿ���ģ�?
+  uint32_t addr = 0x08010000;   // ȷ���õ�ַ�ڲ�FLASH�ǿ���ģ�??
   uint32_t WrData = 0x01234567; // ��д������
   uint32_t RdData = 0;          // �洢��ȡ����
 
@@ -404,16 +404,16 @@ void Get_MCU_Info(void)
 
 }
 /**
-  * @brief 读取内部温度传感�?
+  * @brief 读取内部温度传感�??
   */
  void Get_Temp(void)
  {
-     uint32_t Temp;//温度采样分层�?
-     float Vsense = 0.0;//温度采样电压�?
-     float Temperature = 0.0;//温度�?
+     uint32_t Temp;//温度采样分层�??
+     float Vsense = 0.0;//温度采样电压�??
+     float Temperature = 0.0;//温度�??
      //数据手册温度转换公式：T = ((V25-Vsense)/Avg_Slope) + 25
      float V25 = 1.43;//查阅手册获得
-     float Avg_Slope = 0.0043;//4.3mV/摄氏�?
+     float Avg_Slope = 0.0043;//4.3mV/摄氏�??
      printf("\r\n\r\n------------------MCU inside Temperature sensor------------------\r\n\r\n");
      //step1 启动ADC
      HAL_ADC_Start(&hadc1);
@@ -421,7 +421,7 @@ void Get_MCU_Info(void)
      HAL_ADC_PollForConversion(&hadc1,5);
      //step3 转换计算
      Temp = HAL_ADC_GetValue(&hadc1);//获取采样值分层�??
-     Vsense = Temp *(3.3/4096);//采样精度12bit,�?大分层�??4096
+     Vsense = Temp *(3.3/4096);//采样精度12bit,�??大分层�??4096
      Temperature = ((V25-Vsense)/Avg_Slope) + 25;//按公式计算温度�??
      //step4 串口打印
      printf("Temp:%d\r\nVsense:%0.3f\r\nTemperature:%0.3f\r\n", (int)Temp, Vsense, Temperature);
@@ -433,7 +433,7 @@ void OLED_IIC_Test(void)
   uint16_t ms = 1000;
   OLED_Init();       // 初始化OLED
   OLED_Clear();      // 清除屏幕
-  OLED_Display_On(); // �??启OLED
+  OLED_Display_On(); // �???启OLED
 
   /*****************************************
    *
@@ -475,11 +475,11 @@ void OLED_IIC_Test(void)
    *0.96 OLED 中文显示测试
    *
    *******************************************/
-  OLED_ShowCHinese(22, 3, 1, 0);      // �??
-  OLED_ShowCHinese(22 + 16, 3, 2, 0); // �??
-  OLED_ShowCHinese(22 + 32, 3, 3, 0); // �??
-  OLED_ShowCHinese(22 + 48, 3, 4, 0); // �??
-  OLED_ShowCHinese(22 + 64, 3, 5, 0); // �??
+  OLED_ShowCHinese(22, 3, 1, 0);      // �???
+  OLED_ShowCHinese(22 + 16, 3, 2, 0); // �???
+  OLED_ShowCHinese(22 + 32, 3, 3, 0); // �???
+  OLED_ShowCHinese(22 + 48, 3, 4, 0); // �???
+  OLED_ShowCHinese(22 + 64, 3, 5, 0); // �???
 
   OLED_ShowString(25, 6, "CHN Test!", 16, 1);
 
@@ -488,7 +488,7 @@ void OLED_IIC_Test(void)
 
   /*****************************************
    *
-   *0.96 OLED 字符串显示测�??
+   *0.96 OLED 字符串显示测�???
    *
    *******************************************/
 
@@ -511,10 +511,10 @@ void OLED_Snow_Test(void)
 {
   OLED_Init();       // 初始化OLED
   OLED_Clear();      // 清除屏幕
-  OLED_Display_On(); // �?启OLED
+  OLED_Display_On(); // �??启OLED
   static u8 x, y;
 
-  // 设置128列下落点的初始�?�，随机产生0-63之间的数�?
+  // 设置128列下落点的初始�?�，随机产生0-63之间的数�??
   for (int i = 0; i < 128; i++)
     fall_pot[i] = rand() % 64;
 
@@ -530,10 +530,10 @@ void OLED_Snow_Test(void)
 void SnowLike(void)
 {
   OLED_ClearGram();               // 清除屏幕
-  for (u_char i = 0; i < 32; i++) // �?4列�?�一�?
+  for (u_char i = 0; i < 32; i++) // �??4列�?�一�??
   {
     // OLED_Fill(x,0,x+2,y+2,1);
-    // 画下落的点，每次下落2个像素，�?4列�?�一个，保证雪花不至于太�?
+    // 画下落的点，每次下落2个像素，�??4列�?�一个，保证雪花不至于太�??
     OLED_Fill(i * 4, fall_pot[i], i * 4 + 1, fall_pot[i] + 1, 1);
     if (fall_pot[i] >= 2)
       fall_pot[i] -= 2;

@@ -3,7 +3,7 @@
 #include "Driver_I2C.h"
 #include "oledfont.h"  	
 
-I2C_HandleTypeDef hi2c1;
+//I2C_HandleTypeDef hi2c1;
 /**********************************************
 // IIC Write Command
 **********************************************/
