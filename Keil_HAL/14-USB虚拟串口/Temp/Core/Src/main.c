@@ -38,7 +38,7 @@ uint8_t rx_cnt = 0;//�������ݳ���
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-unsigned char USB_CDC_buff[] = {"STM32 HAL��USB���⴮�ڲ���!\r\n"};
+unsigned char USB_CDC_buff[] = {"STM32 HAL USB virtual port com test\r\n"};
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -120,7 +120,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
+    CDC_Transmit_FS(USB_CDC_buff, sizeof(USB_CDC_buff));
+    HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }

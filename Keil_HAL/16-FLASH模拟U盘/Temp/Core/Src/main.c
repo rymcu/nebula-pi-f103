@@ -419,12 +419,12 @@ void spi_flash_test(void)
 // FATFS����
 void FATFS_FLASH_Test(void)
 {
-  static FATFS fs;                                                              // �ļ�ϵͳ����
-  static FIL fnew;                                                       // �ļ�����
-  BYTE FATFS_Wr_Buff[128] = "hello, www.rymcu.com make it easy!have fun.\r\n"; // д������
-  BYTE FATFS_Rd_Buff[128] = {0};                                         // ��������
-  UINT fnum;                                                             // �ɹ���д����
-  FRESULT res;                                                           // ����
+  static FATFS fs;                                                             
+  static FIL fnew;        
+  BYTE FATFS_Wr_Buff[128] = "hello,www.rymcu.com make it easy!have fun.\r\n"; 
+  BYTE FATFS_Rd_Buff[128] = {0};                                         
+  UINT fnum;                                                             
+  FRESULT res;                                                          
 
   printf("\r\n\r\n------------------FLASH FATFS TEST------------------\r\n\r\n");
   res = f_mount(&fs, "0:", 1);

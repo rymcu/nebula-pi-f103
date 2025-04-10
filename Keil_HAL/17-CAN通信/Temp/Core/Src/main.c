@@ -194,7 +194,7 @@ static void MX_CAN_Init(void)
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN1;
   hcan.Init.Prescaler = 9;
-  hcan.Init.Mode = CAN_MODE_LOOPBACK;
+  hcan.Init.Mode = CAN_MODE_SILENT_LOOPBACK;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan.Init.TimeSeg1 = CAN_BS1_5TQ;
   hcan.Init.TimeSeg2 = CAN_BS2_2TQ;
@@ -210,10 +210,10 @@ static void MX_CAN_Init(void)
   }
   /* USER CODE BEGIN CAN_Init 2 */
     //����CAN
-    if(HAL_CAN_Start(&hcan) != HAL_OK)
-    {
-        printf("CAN start Fail!\r\n");
-    }
+//    if(HAL_CAN_Start(&hcan) != HAL_OK)
+//    {
+//        printf("CAN start Fail!\r\n");
+//    }
     //�����ж�,FIFO 0������Ϣ�ж�
     HAL_CAN_ActivateNotification(&hcan,CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END CAN_Init 2 */
