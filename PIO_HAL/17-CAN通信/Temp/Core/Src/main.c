@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h" //printf函数�?
+#include "stdio.h" //printf函数�??
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,9 +102,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
- 
   filter_init();
- 
   HAL_Delay(1000);
   CAN_Test();
   /* USER CODE END 2 */
@@ -113,7 +111,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */ 
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
     // 处理CAN接收数据
@@ -137,7 +135,6 @@ int main(void)
       rx_cnt = 0; // 清除接收长度
     }
     HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin); // 切换亮灭
-    HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
@@ -211,22 +208,12 @@ static void MX_CAN_Init(void)
   hcan.Init.TransmitFifoPriority = DISABLE;
   if (HAL_CAN_Init(&hcan) != HAL_OK)
   {
-    printf("CAN init failed!\r\n");
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
-    //开启中断,FIFO 0接收消息中断
-    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    //�?启中�?,FIFO 0接收消息中断
     HAL_CAN_ActivateNotification(&hcan,CAN_IT_RX_FIFO0_MSG_PENDING);
-    HAL_StatusTypeDef ret;
-    HAL_Delay(100);
-    ret=HAL_CAN_Start(&hcan);
-    if(ret) //启动CAN
-    {
-        printf("CAN start failed!ret:%d\r\n",ret);
-
-    }
+    HAL_CAN_Start(&hcan);
   /* USER CODE END CAN_Init 2 */
 
 }
@@ -259,7 +246,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  // �?启接收中断，空闲中断
+  // �??启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE | UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -333,7 +320,7 @@ PUTCHAR_PROTOTYPE
 {
     HAL_StatusTypeDef HAL_Status;
     CAN_FilterTypeDef Filter0;
-    Filter0.FilterBank = 1;//滤波器编号
+    Filter0.FilterBank = 1;//滤波器编�?
     Filter0.FilterMode = CAN_FILTERMODE_IDMASK;
     Filter0.FilterScale = CAN_FILTERSCALE_32BIT;
     Filter0.FilterIdHigh = 0x00;
@@ -366,7 +353,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 }
 void CAN_Test(void)
 {
-    //发送数据CAN
+    //发�?�数据CAN
     TxHeaderCAN.ExtId = 0x1800F001;
     TxHeaderCAN.DLC = 8;
     TxHeaderCAN.IDE = CAN_ID_STD;
