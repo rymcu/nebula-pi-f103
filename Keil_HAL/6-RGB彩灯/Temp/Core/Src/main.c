@@ -45,7 +45,53 @@ uint8_t rx_cnt = 0;//�������ݳ���
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
+#include "string.h"
+#define WS2812_PIN    GPIO_PIN_13
+#define WS2812_PORT   GPIOC
 
+// WS2812时序参数（72MHz系统时钟，已校准）
+#define T0H  24    // 0码高电平时间：24 NOP ≈ 0.333us (目标0.35us)
+#define T1H  48    // 1码高电平时间：48 NOP ≈ 0.666us (目标0.7us)
+#define T0L  50    // 0码低电平时间：50 NOP ≈ 0.694us (补偿GPIO操作延迟)
+#define T1L  26    // 1码低电平时间：26 NOP ≈ 0.361us (补偿GPIO操作延迟)
+#define RESET_DELAY 3600 // 复位时间：3600 NOP ≈ 50us
+
+// 精确的NOP延时（禁用编译器优化）
+__attribute__((optimize("O0"))) 
+void WS2812_Delay(uint32_t nops) {
+    while (nops--) {
+        __ASM volatile ("nop"); // 强制插入NOP指令
+    }
+}
+
+// 发送一个字节到WS2812（优化GPIO操作）
+void WS2812_SendByte(uint8_t byte) {
+    for (uint8_t i = 0; i < 8; i++) {
+        if (byte & (1 << (7 - i))) { // 发送1码
+            // 高电平阶段
+            HAL_GPIO_WritePin(WS2812_PORT, WS2812_PIN, GPIO_PIN_SET);
+            WS2812_Delay(T1H);
+            // 低电平阶段
+            HAL_GPIO_WritePin(WS2812_PORT, WS2812_PIN, GPIO_PIN_RESET);
+            WS2812_Delay(T1L);
+        } else { // 发送0码
+            // 高电平阶段
+            HAL_GPIO_WritePin(WS2812_PORT, WS2812_PIN, GPIO_PIN_SET);
+            WS2812_Delay(T0H);
+            // 低电平阶段
+            HAL_GPIO_WritePin(WS2812_PORT, WS2812_PIN, GPIO_PIN_RESET);
+            WS2812_Delay(T0L);
+        }
+    }
+}
+
+// 发送RGB颜色（GRB格式）
+void WS2812_SendColor(uint8_t r, uint8_t g, uint8_t b) {
+    WS2812_SendByte(g); // 先发绿色分量
+    WS2812_SendByte(r);
+    WS2812_SendByte(b);
+    WS2812_Delay(RESET_DELAY); // 复位信号
+}
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,6 +150,10 @@ int main(void)
   //printf��ӡ���ݲ���
   printf("hello,enjoy!\r\n");
   HAL_Delay(1000);
+
+    // 强制关闭编译器优化（确保时序稳定）
+    __ASM volatile ("nop");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,12 +163,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    sendRGB(0, 25, 0); //������ɫ
-    HAL_Delay(1000);
-    sendRGB(0, 0, 25);//������ɫ
-    HAL_Delay(1000);
-    sendRGB(25, 0, 0);//���ú�ɫ
-    HAL_Delay(1000);
+        // 红色 → 延时1秒
+        WS2812_SendColor(255, 0, 0);
+        HAL_Delay(1000);
+
+        // 绿色 → 延时1秒
+        WS2812_SendColor(0, 255, 0);
+        HAL_Delay(1000);
+
+        // 蓝色 → 延时1秒
+        WS2812_SendColor(0, 0, 255);
+        HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
