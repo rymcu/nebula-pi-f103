@@ -113,7 +113,7 @@ int main(void)
 	lv_port_indev_init();
 	lv_log_register_print_cb(my_print);
 
-	my_lvgl_app();
+	//my_lvgl_app();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -183,7 +183,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 			//printf("tim2 update\r\n");
 		}
-		lv_tick_inc(1);
+		//lv_tick_inc(1);
 	}
 }
 #ifdef __GNUC__
