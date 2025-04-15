@@ -21,11 +21,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"//printf函数�??
+#include "stdio.h"//printf函数
 #include "bsp_lcd_driver.h"
 #include "lvgl.h"
-#include "lv_port_disp_template.h"
-#include "lv_port_indev_template.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,6 +46,8 @@ uint8_t rx_cnt = 0;//接收数据长度
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim2;
+
 UART_HandleTypeDef huart1;
 
 SRAM_HandleTypeDef hsram1;
@@ -59,6 +61,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_FSMC_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -99,41 +102,22 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_FSMC_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  LCD_Init();
-  printf("hello,enjoy!\r\n");
-  HAL_Delay(1000);
-    // 根据型号显示不同颜色
-    switch (LCD_DetectModel()) {
-        case LCD_ILI9341:
-            LCD_FillColor(0xF800); // 红色
-						printf("LCD_ILI9341");
-            break;
-        case LCD_ST7789V:
-            LCD_FillColor(0x07E0); // 绿色
-						printf("LCD_ST7789V");
-            break;
-        default:
-            LCD_FillColor(0x0000); // 黑色
-						printf("LCD_UNKNOW");
-            break;
-    }
-		//红色方块
-		LCD_SetWindow(0,0,120,160);
-		LCD_FillColor(0xF800);
-		//黑色方块
-		LCD_SetWindow(120,160,240,320);
-		LCD_FillColor(0x0000);
-    HAL_Delay(5000);
+  HAL_TIM_Base_Start_IT(&htim2);
 	lv_init();
 	lv_port_disp_init();
 	//lv_port_indev_init();
-  lv_log_register_print_cb(my_print);
+  //lv_log_register_print_cb(my_print);
 
     // 创建测试UI
-    lv_obj_t * label = lv_label_create(lv_scr_act());
-    lv_label_set_text(label, "Hello LVGL 9.0!");
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_t* label2 = lv_label_create(lv_scr_act());
+  lv_label_set_long_mode(label2,LV_LABEL_LONG_SCROLL_CIRCULAR);/*circular scroll*/
+  lv_obj_set_width(label2,120);
+
+  lv_label_set_text(label2,"Hello LVGL 9.2.2 www.rymcu.com pio");
+  lv_obj_align(label2,LV_ALIGN_CENTER,0,0);
+  lv_obj_invalidate(label2);;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -146,7 +130,7 @@ int main(void)
 		lv_timer_handler();	
 		HAL_Delay(5); 
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    lv_tick_inc(1);
+    //lv_tick_inc(1);
   }
   /* USER CODE END 3 */
 }
@@ -191,6 +175,51 @@ void SystemClock_Config(void)
 }
 
 /**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 71;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 999;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -218,7 +247,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //�??启接收中断，空闲中断
+  //�????启接收中断，空闲中断
   __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE|UART_IT_RXNE);
   /* USER CODE END USART1_Init 2 */
 
@@ -357,6 +386,22 @@ void my_print(lv_log_level_t level, const char * buf)
 	uint16_t length;
 	length  = lv_strlen(buf);
 	HAL_UART_Transmit(&huart1,(uint8_t *)buf,length,0xFFFF);//输出指向串口USART1
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{	
+	HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
+	static uint16_t i = 0;
+	if (htim->Instance == htim2.Instance)
+	{
+		i++;
+		if(i == 500)
+		{
+			i=0;
+			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+			printf("tim2 update\r\n");
+		}
+		lv_tick_inc(1);
+	}
 }
 /* USER CODE END 4 */
 
