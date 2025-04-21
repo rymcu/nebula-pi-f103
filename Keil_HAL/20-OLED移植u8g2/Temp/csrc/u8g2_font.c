@@ -742,7 +742,7 @@ int8_t u8g2_font_2x_decode_glyph(u8g2_t *u8g2, const uint8_t *glyph_data)
       y1 += 2*h;      
       
       if ( u8g2_IsIntersection(u8g2, x0, y0, x1, y1) == 0 ) 
-	return 2*d;
+	return d;
     }
 #endif /* U8G2_WITH_INTERSECTION */
    
@@ -869,11 +869,12 @@ const uint8_t *u8g2_font_get_glyph_data(u8g2_t *u8g2, uint16_t encoding)
 static u8g2_uint_t u8g2_font_draw_glyph(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, uint16_t encoding)
 {
   u8g2_uint_t dx = 0;
+  const uint8_t *glyph_data = u8g2_font_get_glyph_data(u8g2, encoding);
   u8g2->font_decode.target_x = x;
   u8g2->font_decode.target_y = y;
   //u8g2->font_decode.is_transparent = is_transparent; this is already set
   //u8g2->font_decode.dir = dir;
-  const uint8_t *glyph_data = u8g2_font_get_glyph_data(u8g2, encoding);
+  
   if ( glyph_data != NULL )
   {
     dx = u8g2_font_decode_glyph(u8g2, glyph_data);
@@ -884,9 +885,10 @@ static u8g2_uint_t u8g2_font_draw_glyph(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t
 static u8g2_uint_t u8g2_font_2x_draw_glyph(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, uint16_t encoding)
 {
   u8g2_uint_t dx = 0;
+  const uint8_t *glyph_data = u8g2_font_get_glyph_data(u8g2, encoding);
   u8g2->font_decode.target_x = x;
   u8g2->font_decode.target_y = y;
-  const uint8_t *glyph_data = u8g2_font_get_glyph_data(u8g2, encoding);
+  
   if ( glyph_data != NULL )
   {
     dx = u8g2_font_2x_decode_glyph(u8g2, glyph_data);
@@ -1073,10 +1075,11 @@ u8g2_uint_t u8g2_DrawUTF8X2(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, const ch
 
 u8g2_uint_t u8g2_DrawExtendedUTF8(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, uint8_t to_left, u8g2_kerning_t *kerning, const char *str)
 {
-  u8g2->u8x8.next_cb = u8x8_utf8_next;
   uint16_t e_prev = 0x0ffff;
   uint16_t e;
   u8g2_uint_t delta, sum, k;
+  u8g2->u8x8.next_cb = u8x8_utf8_next;
+
   u8x8_utf8_init(u8g2_GetU8x8(u8g2));
   sum = 0;
   for(;;)
@@ -1120,10 +1123,11 @@ u8g2_uint_t u8g2_DrawExtendedUTF8(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, ui
 
 u8g2_uint_t u8g2_DrawExtUTF8(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, uint8_t to_left, const uint16_t *kerning_table, const char *str)
 {
-  u8g2->u8x8.next_cb = u8x8_utf8_next;
   uint16_t e_prev = 0x0ffff;
   uint16_t e;
   u8g2_uint_t delta, sum, k;
+  u8g2->u8x8.next_cb = u8x8_utf8_next;
+
   u8x8_utf8_init(u8g2_GetU8x8(u8g2));
   sum = 0;
   for(;;)
@@ -1347,7 +1351,7 @@ static u8g2_uint_t u8g2_string_width(u8g2_t *u8g2, const char *str)
     str++;
     if ( e != 0x0fffe )
     {
-      dx = u8g2_GetGlyphWidth(u8g2, e);		/* delta x value of the glyph, side effect: updates u8g2->glyph_x_offset */
+      dx = u8g2_GetGlyphWidth(u8g2, e);		/* delta x value of the glyph */
 #ifdef U8G2_BALANCED_STR_WIDTH_CALCULATION
       if ( initial_x_offset == -64 )
         initial_x_offset = u8g2->glyph_x_offset;
@@ -1375,28 +1379,6 @@ static u8g2_uint_t u8g2_string_width(u8g2_t *u8g2, const char *str)
   // printf("w=%d \n", w);
   
   return w;  
-}
-
-int8_t u8g2_GetXOffsetGlyph(u8g2_t *u8g2, uint16_t encoding)
-{
-  u8g2_GetGlyphWidth(u8g2, encoding);		/* delta x value of the glyph, side effect: updates u8g2->glyph_x_offset */
-  return u8g2->glyph_x_offset;
-}
-
-int8_t u8g2_GetXOffsetUTF8(u8g2_t *u8g2, const char *utf8)
-{
-  uint16_t e; 
-  u8x8_utf8_init(u8g2_GetU8x8(u8g2));
-  for(;;)  // extract encoding from UTF8 byte stream
-  {
-    e = u8x8_utf8_next(u8g2_GetU8x8(u8g2), (uint8_t)*utf8);
-    if ( e == 0x0ffff )
-      return 0;
-    if ( e < 0x0fffe )  // 0x0fffe means: just continue 
-      break;
-    utf8++;
-  }
-  return u8g2_GetXOffsetGlyph(u8g2, e);
 }
 
 static void u8g2_GetGlyphHorizontalProperties(u8g2_t *u8g2, uint16_t requested_encoding, uint8_t *w, int8_t *ox, int8_t *dx)

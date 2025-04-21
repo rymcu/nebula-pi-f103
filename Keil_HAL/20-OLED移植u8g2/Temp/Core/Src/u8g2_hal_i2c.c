@@ -1,5 +1,5 @@
-#include "u8g2_hal_i2c.h"
-#include "gpio.h"  // 确保包含HAL的GPIO头文件
+#include "u8g2.h"
+#include "main.h"  // 确保包含HAL的GPIO头文件
 
 // 定义U8g2全局对象
 static u8g2_t u8g2;
