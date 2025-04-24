@@ -63,8 +63,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define CTP_SDA_Pin GPIO_PIN_2
 #define CTP_SDA_GPIO_Port GPIOE
-#define CTP_EN_Pin GPIO_PIN_4
-#define CTP_EN_GPIO_Port GPIOE
+#define CTP_PEN_Pin GPIO_PIN_4
+#define CTP_PEN_GPIO_Port GPIOE
 #define WS2812_Pin GPIO_PIN_13
 #define WS2812_GPIO_Port GPIOC
 #define K1_Pin GPIO_PIN_2

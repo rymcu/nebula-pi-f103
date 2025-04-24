@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE,LV_LVGL_H_INCLUDE_SIMPLE,LV_CONF_INCLUDE_SIMPLE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../user/u8g2;../user/u8g2/csrc;../RT-Thread;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/;../user/lvgl-app</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../user/u8g2;../user/u8g2/csrc;../RT-Thread;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/;../user/lvgl-app;../user/delayus</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -420,6 +420,16 @@
               <FileName>lv_port_indev.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\Inc\lv_port_indev.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_delay_us.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\delayus\bsp_delay_us.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_delay_us.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\user\delayus\bsp_delay_us.h</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -2261,6 +2271,26 @@
               <FileName>ry_test.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\user\lvgl-app\ry_test.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_driver_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\lvgl-app\bsp_driver_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_ft6336_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\lvgl-app\bsp_ft6336_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_driver_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\user\lvgl-app\bsp_driver_i2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_ft6336_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\user\lvgl-app\bsp_ft6336_lcd.h</FilePath>
             </File>
           </Files>
         </Group>

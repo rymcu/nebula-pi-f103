@@ -2,6 +2,7 @@
 #define __BSP_FT6336_H__
 
 #include "bsp_driver_i2c.h"
+#include "rtthread.h"
 
 // FT6336¼Ä´æÆ÷
 #define FT6336_REG_DEV_MODE 0x00

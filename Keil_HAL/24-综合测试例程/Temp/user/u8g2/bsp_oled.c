@@ -57,39 +57,6 @@ void OLED_DisplayString(uint8_t x, uint8_t y, const char *str) {
   u8g2_SendBuffer(&u8g2);
 }
 //---------------------------------------------------------------------
-// us延时函数
-//---------------------------------------------------------------------
-void delay_us(uint32_t us)
-{
-    uint32_t ticks;
-    uint32_t told, tnow, tcnt = 0;
-    uint32_t reload = SysTick->LOAD;
-
-    ticks = us * (HAL_RCC_GetHCLKFreq() / 1000000);
-    told = SysTick->VAL;
-
-    while (1)
-    {
-        tnow = SysTick->VAL;
-        if (tnow != told)
-        {
-            if (tnow < told)
-            {
-                tcnt += told - tnow;
-            }
-            else
-            {
-                tcnt += reload - tnow + told;
-            }
-            told = tnow;
-            if (tcnt >= ticks)
-            {
-                break;
-            }
-        }
-    }
-}
-//---------------------------------------------------------------------
 // 软件I2C
 //---------------------------------------------------------------------
 uint8_t u8g2_gpio_and_delay_stm32_soft_iic(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_int, U8X8_UNUSED void *arg_ptr)

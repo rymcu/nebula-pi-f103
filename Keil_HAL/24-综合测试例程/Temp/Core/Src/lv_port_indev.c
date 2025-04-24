@@ -4,13 +4,14 @@
  */
 
 /*Copy this file as "lv_port_indev.c" and set this value to "1" to enable content*/
-#if 0    //RYMCU
+#if 1   //RYMCU
 
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_port_indev.h"
+#include "lv_port_indev_template.h"
 //#include "bsp_xpt2046_lcd.h" //RYMCU
+#include "bsp_ft6336_lcd.h" //RYMCU
 /*********************
  *      DEFINES
  *********************/
@@ -82,6 +83,7 @@ static void touchpad_init(void)
 {
     /*Your code comes here*/
 	//XPT2046_Init(); //RYMCU
+	FT6336_Init(); //RYMCU
 }
 
 /*Will be called by the library to read the touchpad*/
@@ -108,9 +110,8 @@ static void touchpad_read(lv_indev_t * indev_drv, lv_indev_data_t * data)
 static bool touchpad_is_pressed(void)
 {
     /*Your code comes here*/
-	//if(XPT2046_TouchDetect())
-		return true; //RYMCU
-
+	//if(XPT2046_TouchDetect()) return true; //RYMCU
+		if(CTP_TouchDetect()) return true; //RYMCU
     return false;
 }
 
@@ -118,11 +119,12 @@ static bool touchpad_is_pressed(void)
 static void touchpad_get_xy(int32_t * x, int32_t * y)
 {
     /*Your code comes here*/
-//	static strType_XPT2046_Coordinate cinfo={-1,-1,-1,-1};
-	//XPT2046_Get_TouchedPoint(&cinfo,strXPT2046_TouchPara);
+//	static strType_XPT2046_Coordinate cinfo={-1,-1,-1,-1};//RYMCU
+//	XPT2046_Get_TouchedPoint(&cinfo,strXPT2046_TouchPara);
 
-   // (*x) = cinfo.x;
-    //(*y) = cinfo.y;
+//    (*x) = cinfo.x;
+//    (*y) = cinfo.y;
+	FT6336_ReadXY(x,y,6);//RYMCU
 }
 
 #else /*Enable this file at the top*/

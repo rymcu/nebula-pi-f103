@@ -1,4 +1,4 @@
-#include"bsp_ft6336_lcd.h"
+#include "bsp_ft6336_lcd.h"
 
 /**
  * @brief FT6336初始化
@@ -12,9 +12,9 @@
 void FT6336_Init(void)
 {
     HAL_GPIO_WritePin(CTP_CS_GPIO_Port, CTP_CS_Pin, GPIO_PIN_RESET); // 低电平复位至少持续1ms
-    HAL_Delay(50);
+    rt_thread_delay(50);
     HAL_GPIO_WritePin(CTP_CS_GPIO_Port, CTP_CS_Pin, GPIO_PIN_SET); // 文档要求SDA，SCL上拉
-    HAL_Delay(500);
+    rt_thread_delay(500);
 		uint8_t buf = MODE_POLLING;
 		FT6336_Write_N_Data(FT6336_REG_G_MODE,&buf,1);//设置为轮询模式，即按下时中断引脚一直输出低电平
 }
@@ -174,13 +174,14 @@ uint8_t CTP_TouchDetect(void)
 	uint8_t buf;
 	if(CTP_PENIRQ_Read() == CTP_PENIRQ)
 	{
-		delay_us(50);//20us防抖
+		delay_us(10);//20us防抖
 		if(CTP_PENIRQ_Read() == CTP_PENIRQ)
 		{
 			FT6336_ReadReg(FT6336_REG_P1_XH, &buf, 1);
 			if(0x80 == (buf & 0xF0)) return 1;
 			else return 0;
 		}
+	return 0;	
 	}
 	else
 		return 0;

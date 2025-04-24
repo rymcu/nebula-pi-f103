@@ -28,8 +28,10 @@
 #include "stdio.h"
 #include "bsp_lcd_driver.h"
 #include "lv_port_disp.h"
+#include "lv_port_indev.h"
+#include "bsp_ft6336_lcd.h"
 #include "bsp_oled.h"
-#include "rtthread.h"  // 先包含 RT-Thread，确保 rt_malloc 等函数声明有效
+#include "rtthread.h"  // 先包�? RT-Thread，确�? rt_malloc 等函数声明有�?
 #include "lvgl.h"  // 包含 LVGL 头文件，此时宏已生效
 #include "my_lvgl_app.h"
 #include "bsp_rgb.h"
@@ -45,7 +47,7 @@ uint8_t rx_cnt = 0;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-//cubemx��������ʱ��RT-Thread board.c SysTick_Handler�����ֶ����� ��lv_tick_inc(1);//�ֶ�����
+//cubemxʱRT-Thread board.c SysTick_Handlerֶ lv_tick_inc(1);RT_HEAP_SIZE (54*1024)//ֶ
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -77,15 +79,21 @@ unsigned char str_temp_b[]="0";
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 #define LVGL_THREAD_STACK_SIZE 4096
-#define LVGL_THREAD_PRIORITY 9
+#define LVGL_THREAD_PRIORITY 20
 // OLED 硬件参数（根据实际电路修改）
-#define OLED_THREAD_STACK_SIZE  1024   // 线程栈大�?
-#define OLED_THREAD_PRIORITY    20      // 线程优先级（数�?�越小优先级越高�?
-#define OLED_THREAD_TIMESLICE   5       // 时间片（ms�?
+#define OLED_THREAD_STACK_SIZE  1024   // 线程栈大?
+#define OLED_THREAD_PRIORITY    20      // 线程优先级（�??越小优先级越�??
+#define OLED_THREAD_TIMESLICE   5       // 时间片（ms?
 
 static void lvgl_thread_entry(void *parameter) {
 	lv_init();
 	lv_port_disp_init();
+	lv_port_indev_init();
+	 // int32_t xx, yy; // for FT6336
+//  rt_kprintf("FT6336_Init\r\n");
+//  FT6336_Init();               // 
+//  rt_kprintf("FT6336_ReadID\r\n"); //
+//  rt_kprintf("ID=0x%02x\r\n", FT6336_ReadID(FT6336_REG_FOCALTECH_ID));
 	//lv_log_register_print_cb(my_print);
 	//my_lvgl_app();
 	lv_example_anim_1();
@@ -98,7 +106,7 @@ static void lvgl_thread_entry(void *parameter) {
     }
 }
 static void oled_thread_entry(void *parameter) {
-    // 初始�? OLED
+    // 初始? OLED
    OLED_Init();
 
    while (1) 
@@ -158,11 +166,11 @@ int main(void)
   MX_FSMC_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-    /* 初始化 LVGL */
+    /* 初始�? LVGL */
 	rt_thread_t oled_thread  = rt_thread_create("oled_thread",oled_thread_entry,RT_NULL, OLED_THREAD_STACK_SIZE,OLED_THREAD_PRIORITY,20);
-  //if (oled_thread != RT_NULL) {if(RT_EOK == rt_thread_startup(oled_thread)){rt_kprintf("oled_thread create ok!\n");}}	
+  if (oled_thread != RT_NULL) {if(RT_EOK == rt_thread_startup(oled_thread)){rt_kprintf("oled_thread create ok!\n");}}	
 	rt_thread_delay(1000);  
-	rt_thread_t lvgl_thread = rt_thread_create("lvgl",lvgl_thread_entry,RT_NULL, LVGL_THREAD_STACK_SIZE,LVGL_THREAD_PRIORITY,10);
+	rt_thread_t lvgl_thread = rt_thread_create("lvgl",lvgl_thread_entry,RT_NULL, LVGL_THREAD_STACK_SIZE,LVGL_THREAD_PRIORITY,20);
   if (lvgl_thread != RT_NULL) 
 	{
 		if(RT_EOK == rt_thread_startup(lvgl_thread))
@@ -186,7 +194,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 			HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
 			rt_kprintf("rymcu rt-thread test!\n");
-        rt_thread_delay(1000);          // 主线程其他任�?
+        rt_thread_delay(1000);          // 主线程其他任?
 	}
   /* USER CODE END 3 */
 }
@@ -254,7 +262,7 @@ void my_print(lv_log_level_t level, const char * buf)
 	//printf("%s",buf);
 	uint16_t length;
 	length  = lv_strlen(buf);
-	HAL_UART_Transmit(&huart1,(uint8_t *)buf,length,0xFFFF);//���ָ�򴮿�USART1
+	HAL_UART_Transmit(&huart1,(uint8_t *)buf,length,0xFFFF);//ָ򴮿USART1
 }
 /* USER CODE END 4 */
 
