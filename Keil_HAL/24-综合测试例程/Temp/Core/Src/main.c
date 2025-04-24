@@ -27,11 +27,10 @@
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
 #include "bsp_lcd_driver.h"
-#include "lvgl.h"
 #include "lv_port_disp.h"
 #include "bsp_oled.h"
-#include "rtthread.h"
-
+#include "rtthread.h"  // 先包含 RT-Thread，确保 rt_malloc 等函数声明有效
+#include "lvgl.h"  // 包含 LVGL 头文件，此时宏已生效
 #include "my_lvgl_app.h"
 #include "bsp_rgb.h"
 /* USER CODE END Includes */
@@ -77,7 +76,7 @@ unsigned char str_temp_b[]="0";
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-#define LVGL_THREAD_STACK_SIZE 1024*10
+#define LVGL_THREAD_STACK_SIZE 4096
 #define LVGL_THREAD_PRIORITY 9
 // OLED 硬件参数（根据实际电路修改）
 #define OLED_THREAD_STACK_SIZE  1024   // 线程栈大�?
@@ -89,14 +88,8 @@ static void lvgl_thread_entry(void *parameter) {
 	lv_port_disp_init();
 	//lv_log_register_print_cb(my_print);
 	//my_lvgl_app();
-	create_page1();
-	create_page2();
-	create_page3();
-	//create_page4();
-	create_page5();
-	create_all_pages();
-	//lv_example_anim_1();
-	//init_my_lvgl_app();
+	lv_example_anim_1();
+
    
 	rt_kprintf("rymcu lvgl test!\n");
     while (1) {
@@ -160,13 +153,12 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-		MX_GPIO_Init();
-	MX_USART1_UART_Init();
+  MX_GPIO_Init();
+  MX_USART1_UART_Init();
   MX_FSMC_Init();
   MX_ADC1_Init();
-	
   /* USER CODE BEGIN 2 */
-		
+    /* 初始化 LVGL */
 	rt_thread_t oled_thread  = rt_thread_create("oled_thread",oled_thread_entry,RT_NULL, OLED_THREAD_STACK_SIZE,OLED_THREAD_PRIORITY,20);
   //if (oled_thread != RT_NULL) {if(RT_EOK == rt_thread_startup(oled_thread)){rt_kprintf("oled_thread create ok!\n");}}	
 	rt_thread_delay(1000);  

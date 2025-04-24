@@ -335,13 +335,11 @@ void create_page4(void)
 		return;
 	}
 	rt_kprintf("four OK\n");
-	/*
+
 	create_home_button(four);
 	create_leds(four, 4);
 	create_page_label(four, 4);
 	lv_obj_add_event_cb(four, ry_gesture_event, LV_EVENT_GESTURE, NULL);
-	*/
-	
 }
 
 void create_page5(void)
@@ -357,10 +355,10 @@ void create_page5(void)
 	// lv_obj_set_size(five, 100, 100); //设置到屏幕大小
 	// lv_obj_align(five, LV_ALIGN_CENTER, 0, 0);         // 居中对齐
 
-	//five_btn = lv_btn_create(five);
-	//lv_obj_align(five_btn, LV_ALIGN_CENTER, 0, 0);
-	//lv_obj_set_size(five_btn, 80, 80); // 设置到屏幕大小
-/*
+	five_btn = lv_btn_create(five);
+	lv_obj_align(five_btn, LV_ALIGN_CENTER, 0, 0);
+	lv_obj_set_size(five_btn, 80, 80); // 设置到屏幕大小
+
 	// 设置按钮的透明样式
 	lv_obj_set_style_bg_color(five_btn, lv_color_hex(0xFFFFFF), 0);		// 背景颜色
 	lv_obj_set_style_bg_opa(five_btn, LV_OPA_TRANSP, 0);				// 设置背景透明度
@@ -412,7 +410,7 @@ void create_page5(void)
 	create_page_label(five, 5);
 	create_home_button(five);
 	lv_obj_add_event_cb(five, ry_gesture_event, LV_EVENT_GESTURE, NULL);
-	*/
+	
 		/****************************************************************************************************************
 	 *设置背景色
 	 *
@@ -448,13 +446,13 @@ void load_my_page(uint8_t page)
 }
 void lv_example_anim_1(void)
 {
-	//create_page1();
-	//create_page2();
-	//create_page3();
-	//create_page4();
-	//create_page5();
+	create_page1();
+	create_page2();
+	create_page3();
+	create_page4();
+	create_page5();
 	rt_kprintf("after create_page5\n");
-	//ry_list_init(); // 初始化链表
+	ry_list_init(); // 初始化链表
 	rt_kprintf("after ry_list_init\n");
 	lv_scr_load(one); // 显示page1
 	rt_kprintf("after lv_scr_load\n");

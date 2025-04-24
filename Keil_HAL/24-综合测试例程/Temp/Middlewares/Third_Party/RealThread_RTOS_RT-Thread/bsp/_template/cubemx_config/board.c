@@ -12,17 +12,13 @@
 #include <rtthread.h>
 
 #include "main.h"
-#include "adc.h"
-#include "usart.h"
-#include "gpio.h"
-#include "fsmc.h"
-#include "my_lvgl_anim.h"
+
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
 /*
  * Please modify RT_HEAP_SIZE if you enable RT_USING_HEAP
  * the RT_HEAP_SIZE max value = (sram size - ZI size), 1024 means 1024 bytes
  */
-#define RT_HEAP_SIZE (15*1024)
+#define RT_HEAP_SIZE (50*1024)
 static rt_uint8_t rt_heap[RT_HEAP_SIZE];
 
 RT_WEAK void *rt_heap_begin_get(void)
@@ -41,7 +37,7 @@ void SysTick_Handler(void)
     rt_interrupt_enter();
     
     rt_tick_increase();
-		lv_tick_inc(1);//ÊÖ¶¯Ìí¼Ó
+		lv_tick_inc(1);
     rt_interrupt_leave();
 }
 
@@ -64,12 +60,6 @@ void rt_hw_board_init(void)
     HAL_Init();
     SystemClock_Config();
     SystemCoreClockUpdate();
-	 
-	MX_GPIO_Init();
-  MX_USART1_UART_Init();
-  MX_FSMC_Init();
-  MX_ADC1_Init();
-	//init_my_lvgl_app();
     /* 
      * 1: OS Tick Configuration
      * Enable the hardware timer and call the rt_os_tick_callback function
@@ -85,7 +75,6 @@ void rt_hw_board_init(void)
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
     rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
 #endif
-
 }
 
 #ifdef RT_USING_CONSOLE
