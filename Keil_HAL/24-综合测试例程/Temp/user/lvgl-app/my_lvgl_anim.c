@@ -20,6 +20,14 @@ static lv_obj_t *home_label;
 static lv_style_t home_style; // 标签样式
 int counter = 0;			  // 功德总数
 
+void my_set_bg(lv_obj_t *obj)
+{
+	lv_obj_set_style_bg_color(obj, lv_color_hex(0x0), 0); 
+	lv_obj_set_style_bg_grad_color(obj,lv_color_hex(0x0), 0); 
+	lv_obj_set_style_bg_grad_dir(obj, LV_GRAD_DIR_VER, 0); 
+	lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, 0); 
+}
+
 // 按键按下事件处理函数
 static void button_event_handler_press(lv_event_t *e)
 {
@@ -106,7 +114,7 @@ void ry_get_next(void)
 *
 --------------------------------------------------------------------------------------------------------*/
 void ry_gesture_event(lv_event_t *e)
-{
+{/*
 	lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act()); // 获取手势方向
 	lv_obj_t *target_obj = lv_event_get_target_obj(e);
 
@@ -146,7 +154,7 @@ void ry_gesture_event(lv_event_t *e)
 	}
 	default:
 		break;
-	}
+	}*/
 }
 /*--------------------------------------------------------------------------------------------------------
 *每个页面的左下角显示页面数字
@@ -291,7 +299,8 @@ void create_page1(void)
 	// create_home_button(one);//主页不需要
 	create_leds(one, 1);
 	create_page_label(one, 1);
-	lv_obj_add_event_cb(one, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	//lv_obj_add_event_cb(one, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	//my_set_bg(one);
 }
 void create_page2(void)
 {
@@ -301,12 +310,13 @@ void create_page2(void)
 		rt_kprintf("two fail\n");
 		return;
 	}
-	rt_kprintf("two ok\n");
+	//rt_kprintf("two ok\n");
 	create_home_button(two);
 	create_leds(two, 2);
 	create_page_label(two, 2);
 	create_leds_8(two);
-	lv_obj_add_event_cb(two, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	//lv_obj_add_event_cb(two, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	my_set_bg(two);
 }
 void create_page3(void)
 {
@@ -316,14 +326,14 @@ void create_page3(void)
 		rt_kprintf("three fail\n");
 		return;
 	}
-	rt_kprintf("three ok\n");
+	//rt_kprintf("three ok\n");
 	//three = lv_obj_create(NULL);
 	
 	create_home_button(three);
 	create_leds(three, 3);
 	create_page_label(three, 3);
-	lv_obj_add_event_cb(three, ry_gesture_event, LV_EVENT_GESTURE, NULL);
-	
+//	lv_obj_add_event_cb(three, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	my_set_bg(three);
 }
 void create_page4(void)
 {
@@ -334,66 +344,66 @@ void create_page4(void)
 		rt_kprintf("four fail\n");
 		return;
 	}
-	rt_kprintf("four OK\n");
+	//rt_kprintf("four OK\n");
 
 	create_home_button(four);
 	create_leds(four, 4);
 	create_page_label(four, 4);
-	lv_obj_add_event_cb(four, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+//	lv_obj_add_event_cb(four, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+	my_set_bg(four);
 }
 
 void create_page5(void)
 {
-	five = lv_obj_create(NULL);															 // 创建新屏幕但未加载到显示
+	five = lv_obj_create(NULL);															 
 		if(five == NULL)
 	{
 		rt_kprintf("five fail\n");
 		return;
 	}
-	rt_kprintf("five ok\n");
-	//lv_obj_set_style_bg_color(five, lv_palette_main(LV_PALETTE_GREY), LV_STATE_DEFAULT); // 背影色设成蓝色
-	// lv_obj_set_size(five, 100, 100); //设置到屏幕大小
-	// lv_obj_align(five, LV_ALIGN_CENTER, 0, 0);         // 居中对齐
+	//rt_kprintf("five ok\n");
+	//lv_obj_set_style_bg_color(five, lv_palette_main(LV_PALETTE_GREY), LV_STATE_DEFAULT); 
+	// lv_obj_set_size(five, 100, 100); 
+	// lv_obj_align(five, LV_ALIGN_CENTER, 0, 0);        
 
 	five_btn = lv_btn_create(five);
 	lv_obj_align(five_btn, LV_ALIGN_CENTER, 0, 0);
-	lv_obj_set_size(five_btn, 80, 80); // 设置到屏幕大小
+	lv_obj_set_size(five_btn, 80, 80); 
 
-	// 设置按钮的透明样式
-	lv_obj_set_style_bg_color(five_btn, lv_color_hex(0xFFFFFF), 0);		// 背景颜色
-	lv_obj_set_style_bg_opa(five_btn, LV_OPA_TRANSP, 0);				// 设置背景透明度
-	lv_obj_set_style_border_color(five_btn, lv_color_hex(0xFFFFFF), 0); // 边框颜色
-	lv_obj_set_style_border_opa(five_btn, LV_OPA_TRANSP, 0);			// 边框透明
-	lv_obj_set_style_outline_width(five_btn, 0, 0);						// 去掉外轮廓
-	lv_obj_set_style_shadow_width(five_btn, 0, 0);						// 去掉阴影
+	
+	lv_obj_set_style_bg_color(five_btn, lv_color_hex(0xFFFFFF), 0);		
+	lv_obj_set_style_bg_opa(five_btn, LV_OPA_TRANSP, 0);				
+	lv_obj_set_style_border_color(five_btn, lv_color_hex(0xFFFFFF), 0); 
+	lv_obj_set_style_border_opa(five_btn, LV_OPA_TRANSP, 0);			
+	lv_obj_set_style_outline_width(five_btn, 0, 0);						
+	lv_obj_set_style_shadow_width(five_btn, 0, 0);						
 
-	label5 = lv_label_create(five); // 创建label
+	label5 = lv_label_create(five); 
 	lv_label_set_long_mode(label5, LV_LABEL_LONG_WRAP);
-	lv_obj_align(label5, LV_ALIGN_CENTER, 0, 0); // 居中对齐
-	lv_label_set_text(label5, MY_ICON_MUYU);	 // label上显示FOUR
+	lv_obj_align(label5, LV_ALIGN_CENTER, 0, 0); 
+	lv_label_set_text(label5, MY_ICON_MUYU);	 
 
-	static lv_style_t label5_style;											 // 标签样式
-	lv_style_init(&label5_style);											 // 初始化标签样式
-	lv_style_set_text_color(&label5_style, lv_palette_main(LV_PALETTE_RED)); // 标签文本颜色
-	lv_style_set_text_font(&label5_style, &my_muyu);						 // 标签文本字体，自定义字体
-	lv_obj_add_style(label5, &label5_style, 0);								 // 关联标签样式
+	static lv_style_t label5_style;											 
+	lv_style_init(&label5_style);											 
+	lv_style_set_text_color(&label5_style, lv_palette_main(LV_PALETTE_RED)); 
+	lv_style_set_text_font(&label5_style, &my_muyu);						
+	lv_obj_add_style(label5, &label5_style, 0);								 
 
 	lv_obj_add_event_cb(five_btn, button_event_handler_press, LV_EVENT_PRESSED, NULL);
 	lv_obj_add_event_cb(five_btn, button_event_handler_release, LV_EVENT_RELEASED, NULL);
-	// 创建+1标签
+	
 	plus_one = lv_label_create(five);
 	lv_label_set_long_mode(plus_one, LV_LABEL_LONG_WRAP);
-	lv_label_set_text(plus_one, "+1"); // 创建标签文字
+	lv_label_set_text(plus_one, "+1"); // 
 	
 	static lv_style_t style;
   lv_style_init(&style);
-	lv_style_set_text_color(&style, lv_color_hex(0x00FF00)); // 设置文本颜色为绿色
-	lv_obj_add_style(plus_one, &style, 0); // 0表示第一层样式
-	
-	lv_obj_set_pos(plus_one, 80, 100); // 设置标签位置
+	lv_style_set_text_color(&style, lv_color_hex(0x00FF00)); // 
+	lv_obj_add_style(plus_one, &style, 0); // 
+	lv_obj_set_pos(plus_one, 80, 100); // 
 	// lv_obj_set_hidden(plus_one,true);
 	lv_obj_add_flag(plus_one, LV_OBJ_FLAG_HIDDEN);
-	// 创建功德总数标签
+	// 
 	plus_sum = lv_label_create(five);
 	lv_label_set_long_mode(plus_sum, LV_LABEL_LONG_WRAP);
 	lv_label_set_text_fmt(plus_sum, "%d", counter); // 初始化时显示初始值
@@ -409,7 +419,7 @@ void create_page5(void)
 	create_leds(five, 5);
 	create_page_label(five, 5);
 	create_home_button(five);
-	lv_obj_add_event_cb(five, ry_gesture_event, LV_EVENT_GESTURE, NULL);
+//	lv_obj_add_event_cb(five, ry_gesture_event, LV_EVENT_GESTURE, NULL);
 	
 		/****************************************************************************************************************
 	 *设置背景色
@@ -419,7 +429,7 @@ void create_page5(void)
 	lv_obj_set_style_bg_grad_color(five,lv_color_hex(0x0), 0); // 设置渐变结束色
 	lv_obj_set_style_bg_grad_dir(five, LV_GRAD_DIR_VER, 0); // 设置为垂直渐变
 	lv_obj_set_style_bg_opa(five, LV_OPA_COVER, 0); // 设置背景不透明
-	
+	my_set_bg(five);
 }
 //加载切换页面
 void load_my_page(uint8_t page)
@@ -451,29 +461,11 @@ void lv_example_anim_1(void)
 	create_page3();
 	create_page4();
 	create_page5();
-	rt_kprintf("after create_page5\n");
+	//rt_kprintf("after create_page5\n");
 	ry_list_init(); // 初始化链表
-	rt_kprintf("after ry_list_init\n");
+	//rt_kprintf("after ry_list_init\n");
 	lv_scr_load(one); // 显示page1
-	rt_kprintf("after lv_scr_load\n");
+	//rt_kprintf("after lv_scr_load\n");
 
 	//LV_LOG_USER("begin");
-}
-#include "lv_port_disp.h"
-void create_all_pages(void)
-{
-	//create_page1();
-	//create_page2();
-	//create_page3();
-	//create_page4();
-	//create_page5();
-	ry_list_init(); 
-	lv_scr_load(one); // 袛示page1
-}
-
-void init_my_lvgl_app(void)
-{
-	lv_init();
-	lv_port_disp_init();
-	create_all_pages();
 }

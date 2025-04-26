@@ -280,17 +280,17 @@ void ry_lcd_fill(uint16_t x_start,uint16_t y_start,uint16_t x_end,uint16_t y_end
 	uint16_t width = x_end - x_start +1;
 	uint16_t height = y_end - y_start +1;
 	
-	uint16_t i, j;
+	//uint16_t i, j;
 	uint16_t *my_color;
+	uint32_t total = width * height;
 	
 	my_color = (uint16_t *)color;
 	LCD_SetWindow(x_start,y_start,x_end,y_end);
-	LCD_WriteCmd(0x2C); //内存写入
-	for(i=0;i<height;i++)
-	{													   	 	
-		for(j=0;j<width;j++)
-		{
-			LCD_WriteData(*my_color++); 
-		}
-	} 
+	//LCD_WriteCmd(0x2C); //内存写入
+	while(total--)
+	{
+		LCD_WriteData(*my_color++);
+	}
+			 
+
 }

@@ -18,7 +18,7 @@
  * Please modify RT_HEAP_SIZE if you enable RT_USING_HEAP
  * the RT_HEAP_SIZE max value = (sram size - ZI size), 1024 means 1024 bytes
  */
-#define RT_HEAP_SIZE (54*1024)
+#define RT_HEAP_SIZE (55*1024)
 static rt_uint8_t rt_heap[RT_HEAP_SIZE];
 
 RT_WEAK void *rt_heap_begin_get(void)
@@ -37,7 +37,7 @@ void SysTick_Handler(void)
     rt_interrupt_enter();
     
     rt_tick_increase();
-		lv_tick_inc(1);
+lv_tick_inc(1);
     rt_interrupt_leave();
 }
 

@@ -149,18 +149,18 @@ void DebugMon_Handler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)//���յ�һ���ֽڣ�����һ�ν����ж�
+ if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_RXNE)  == SET)
   {
-      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); //�����յ����ݴ���rx_buff��
-      if(rx_cnt >= 100) rx_cnt = 0;                //ÿ�����ݲ��ܳ�������buff���ܳ���
-      __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_RXNE);//��������жϱ��?
+      HAL_UART_Receive(&huart1,&rx_buff[rx_cnt++],1,0); 
+      if(rx_cnt >= 100) rx_cnt = 0;                
+      __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_RXNE);
   }
 
-  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)//���������ݺ��������ж�
+  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE) == SET)
   {
-   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);//�������Կ����ж���Ч
-      __HAL_UART_CLEAR_PEFLAG(&huart1);//ʹ���������idle�жϵ����㣬�����һֱ�����ж�?
-      rx_done = 1; //��⵽����״̬����λ�������λ
+   // __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);
+      __HAL_UART_CLEAR_PEFLAG(&huart1);
+    rx_done = 1; 
   }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);

@@ -75,7 +75,7 @@ lv_obj_t *my_lvgl_nebula(void) // 入口函数
 	lv_label_set_long_mode(label_lvgl, LV_LABEL_LONG_SCROLL_CIRCULAR);
 	lv_obj_set_width(label_lvgl, 80);
 	lv_label_set_text(label_lvgl, "powered by:LVGL 9.2     "); // 创建标签文字
-	lv_obj_align(label_lvgl, LV_ALIGN_CENTER, 0, 112);
+	lv_obj_align(label_lvgl, LV_ALIGN_CENTER, 0, -60);
 
 	static lv_style_t label_lvgl_style;											 // 标签样式
 	lv_style_init(&label_lvgl_style);											 // 初始化标签样式
