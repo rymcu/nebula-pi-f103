@@ -82,7 +82,7 @@
 
 <img src="images/uart.png" style="zoom: 60%;" />
 
-**`mac`用户可装串口调试助手`RYCOM 2.6.2.dmg`。**首次使用可能需要先打开串口使用权限。
+**`mac`用户可安装串口调试助手`RYCOM 2.6.2.dmg`，首次使用可能需要先打开串口使用权限。**
 
 ### **方式二：`Keil`软件下载**
 
@@ -98,7 +98,7 @@
 
 ### **方式三：`vscode`下载**
 
-改方法同时支持`macOS`和`win`。使用`vscode + Platformio`方式，首次使用需要：安装`vscode`软件及`platformio`插件等相关内容，`vscode`请网络搜索并安装，完成后打开`vscode`，安装`platformio`插件如下。
+该方法同时支持`macOS`和`win`。使用`vscode + Platformio`方式，首次使用需要：安装`vscode`软件及`platformio`插件等相关内容，`vscode`请网络搜索并安装，完成后打开`vscode`，安装`platformio`插件如下。
 
 <img src="images/pio0.png" style="zoom: 60%;" />
 
