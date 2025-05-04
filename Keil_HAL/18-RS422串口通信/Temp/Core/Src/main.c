@@ -95,11 +95,12 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+	HAL_Delay(1000);
   printf("hello RS422!\r\n");
-  //串口发数据
+  //串口发数据       
   unsigned char Sendbuf[]="RYMCU nebula-pi RS422 test!\r\n";
   HAL_UART_Transmit(&huart3,Sendbuf,sizeof(Sendbuf),HAL_MAX_DELAY);
-  HAL_Delay(1000);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
