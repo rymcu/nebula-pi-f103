@@ -24,13 +24,9 @@
 
       <img src="images/core.png" style="zoom: 50%;" />
 
-    
+#     2.资源配置
 
-    # 2.资源配置
-
-    
-
-    <img src="images/nebula-pi-f103.png" style="zoom: 50%;" />
+<img src="images/nebula-pi-f103.png" style="zoom: 50%;" />
 
 | 序号 | 资源                  | 功能                                                         |
 | :--: | :-------------------- | ------------------------------------------------------------ |
@@ -60,22 +56,81 @@
 
 # 3.使用说明
 
-**步骤一：`type-c USB`线、`0.96 OLED`和`2.8`寸触摸显示屏**
+## **步骤一：`type-c USB`线、`0.96 OLED`和`2.8`寸触摸显示屏**
 
 <img src="images/set.png" style="zoom: 50%;" />
 
-**步骤二：连接`USB`线至计算机**
+## **步骤二：连接`USB`线至计算机**
 
 打开社区串口调试助手`RYCOM`和`Keil`,分别能识别出`USB`转串口端口号、`STM32`下载器`CMSIS-DAP`和`F103`单片机。
 
 <img src="images/dap.png" style="zoom: 50%;" />
 
-**步骤三：三种代码下载方式**
+## **步骤三：三种代码下载方式**
 
 下载前先找到工程文件和`.hex`格式可执行文件，其中.hex用于串口下载方式。
 
-方式一：串口下载
+<img src="images/prj.png" style="zoom: 50%;" />
 
-方式二：`keil`软件下载
+### **方式一：串口下载**
 
-方式三：`vscode`下载
+找到出厂综合例程`nebula-pi.hex`，配置跳线帽设置为串口下载模式。
+
+<img src="images/boot.png" style="zoom: 30%;" />
+
+设置好后，按一下开发板左下角`RST`复位按键，复位单片机。打开社区串口调试助手`RYCOM`，按步骤操作下载。
+
+<img src="images/uart.png" style="zoom: 60%;" />
+
+**`mac`用户可装串口调试助手`RYCOM 2.6.2.dmg`。**首次使用可能需要先打开串口使用权限。
+
+### **方式二：`Keil`软件下载**
+
+前提条件为已经正确安装`Keil MDK`软件，找到仓库下`Keil`工程，操作如下。
+
+<img src="images/keil.png" style="zoom: 60%;" />
+
+找到工程的`MDK-ARM`文件夹，双击`Temp.uvprojx`打开工程。
+
+<img src="images/download.png" style="zoom: 60%;" />
+
+**第一次使用时需要设置步骤`2-9`,后续只需点击步骤`1`，`10`即可完成下载。目前`Keil`暂时不支持`macOS`。**
+
+### **方式三：`vscode`下载**
+
+改方法同时支持`macOS`和`win`。使用`vscode + Platformio`方式，首次使用需要：安装`vscode`软件及`platformio`插件等相关内容，`vscode`请网络搜索并安装，完成后打开`vscode`，安装`platformio`插件如下。
+
+<img src="images/pio0.png" style="zoom: 60%;" />
+
+点击`vscode`的`File->Open Folder...`，打开社区星云派仓库`PIO_HAL`文件夹下的任意一个工程文件夹即可。
+
+<img src="images/pio1.png" style="zoom: 50%;" />
+
+
+
+# 4.其他事项
+
+持续更新...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
