@@ -80,7 +80,7 @@
 
 设置好后，按一下开发板左下角`RST`复位按键，复位单片机。打开社区串口调试助手`RYCOM`，按步骤操作下载。
 
-<img src="images/uart.png" style="zoom: 60%;" />
+<img src="images/uart.jpg" style="zoom: 60%;" />
 
 **`mac`用户可安装串口调试助手`RYCOM 2.6.2.dmg`，首次使用可能需要先打开串口使用权限。**
 
