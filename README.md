@@ -1,9 +1,12 @@
-# 1.概述
+# 前言
+
+## 1.概述
+
   <img src="images/logo.png" style="zoom: 67%;" />
 
 
 
-**星允派是一款双核单片机开发板，由嵌入式社区`RYMCU`倾力打造。板载`ARM Cortex-M3(STM32F103VET6) `与 `RISC-V(CH32V203C8T6)`内核单片机。探索双核新境界，双重体验，释放无限创造力！**  <img src="images/星允派顶层.png" alt="2" style="zoom: 50%;" /> **还在为选择`ARM Cortex-M`还是`RISC-V`而犹豫？星允派`Nebula Pi` 开发板，一块板卡，双重体验，释放无限创造力！**
+**星允派是一款双核单片机开发板，由嵌入式社区`RYMCU`倾力打造。板载`Cortex-M3(STM32F103VET6) `与 `RISC-V(CH32V203C8T6)`内核单片机。探索双核新境界，双重体验，释放无限创造力！**  <img src="images/星允派顶层.png" alt="2" style="zoom: 50%;" /> **还在为选择`ARM Cortex-M`还是`RISC-V`而犹豫？星允派`Nebula Pi` 开发板，一块板卡，双重体验，释放无限创造力！**
   ✨ 核心亮点，不容错过： ✨
 
   - 🔥 双核驱动，性能加倍： 同时搭载广受欢迎的 `STM32F103VET6 (ARM Cortex-M3)` 和新兴的 `CH32V203C8T6 (RISC-V)`，无论是学习研究、性能比对还是双核协作项目，一块板卡全搞定！
@@ -24,7 +27,7 @@
 
       <img src="images/core.png" style="zoom: 50%;" />
 
-#     2.资源配置
+##     2.资源配置
 
 <img src="images/nebula-pi-f103.png" style="zoom: 50%;" />
 
@@ -54,25 +57,25 @@
 |  22  | `CH32`按键            | `RISC-V`单片机复位和启动选择按钮                             |
 |  23  | `USB2`(type-c)        | `STM32` `USB`设备口                                          |
 
-# 3.使用说明
+## 3.使用说明
 
-## **步骤一：`type-c USB`线、`0.96 OLED`和`2.8`寸触摸显示屏**
+### **步骤一：`type-c USB`线、`0.96 OLED`和`2.8`寸触摸显示屏**
 
 <img src="images/set.png" style="zoom: 50%;" />
 
-## **步骤二：连接`USB`线至计算机**
+### **步骤二：连接`USB`线至计算机**
 
 打开社区串口调试助手`RYCOM`和`Keil`,分别能识别出`USB`转串口端口号、`STM32`下载器`CMSIS-DAP`和`F103`单片机。
 
 <img src="images/dap.png" style="zoom: 50%;" />
 
-## **步骤三：三种代码下载方式**
+### **步骤三：三种代码下载方式**
 
 下载前先找到工程文件和`.hex`格式可执行文件，其中.hex用于串口下载方式。
 
 <img src="images/prj.png" style="zoom: 50%;" />
 
-### **方式一：串口下载**
+#### **方式一：串口下载**
 
 找到出厂综合例程`nebula-pi.hex`，配置跳线帽设置为串口下载模式。
 
@@ -84,7 +87,7 @@
 
 **`mac`用户可安装串口调试助手`RYCOM 2.6.2.dmg`，首次使用可能需要先打开串口使用权限。**
 
-### **方式二：`Keil`软件下载**
+#### **方式二：`Keil`软件下载**
 
 前提条件为已经正确安装`Keil MDK`软件，找到仓库下`Keil`工程，操作如下。
 
@@ -96,7 +99,7 @@
 
 **第一次使用时需要设置步骤`2-9`,后续只需点击步骤`1`，`10`即可完成下载。目前`Keil`暂时不支持`macOS`。**
 
-### **方式三：`vscode`下载**
+#### **方式三：`vscode`下载**
 
 该方法同时支持`macOS`和`win`。使用`vscode + Platformio`方式，首次使用需要：安装`vscode`软件及`platformio`插件等相关内容，`vscode`请网络搜索并安装，完成后打开`vscode`，安装`platformio`插件如下。
 
@@ -108,23 +111,19 @@
 
 
 
-# 4.其他事项
+## 4.板载下载器`cmsis-dap`固件更新方法
 
-持续更新...
+星允派资源包中找到文件夹“下载器 `wch-daplink` 固件升级”，内部包括固件更新软件和下载器固件，如下所示：
 
+<img src="images/update.png" style="zoom: 100%;" />
 
+第一次使用请先安装固件更新软件 `WCHISPTool_Setup.exe`，安装完成运行如下：
 
+<img src="images/wchisp.png" style="zoom: 100%;" />
 
+解除保护方法如下：
 
-
-
-
-
-
-
-
-
-
+<img src="images/protect.png" style="zoom: 100%;" />
 
 
 
